@@ -5,6 +5,7 @@ globals [
   natural-state?  ;; check if natural state (no more deaths)
   last-death      ;; store last-death to check the time passed since
   survival-rate   ;; rate of survival
+  endowment-error ;; returns true if error in endowment
 ]
 
 turtles-own [
@@ -25,6 +26,7 @@ patches-own [
 ;;
 
 to setup
+  set endowment-error false
   clear-all
   create-turtles initial-population [ turtle-setup ]
   setup-patches
@@ -33,6 +35,11 @@ to setup
   set last-death -1
   set survival-rate 1
   reset-ticks
+  if maximum-sugar-endowment <= minimum-sugar-endowment [
+    user-message "Oops: the maximum-sugar-endowment must be larger than the minimum-sugar-endowment"
+    set endowment-error true
+    stop
+  ]
 end
 
 to turtle-setup ;; turtle procedure
@@ -303,7 +310,7 @@ initial-population
 initial-population
 10
 1000
-900.0
+400.0
 10
 1
 NIL
@@ -349,7 +356,7 @@ MONITOR
 105
 375
 200
-421
+424
 population
 count turtles
 17
@@ -360,7 +367,7 @@ MONITOR
 210
 375
 292
-421
+424
 NIL
 survival-rate
 4
@@ -424,7 +431,7 @@ max-metabolism
 max-metabolism
 1
 10
-2.0
+4.0
 1
 1
 NIL
@@ -439,7 +446,7 @@ max-vision
 max-vision
 1
 10
-10.0
+6.0
 1
 1
 NIL
@@ -449,7 +456,7 @@ MONITOR
 105
 425
 192
-471
+474
 NIL
 natural-state?
 0
@@ -460,7 +467,7 @@ MONITOR
 210
 425
 287
-471
+474
 NIL
 last-death
 1
@@ -854,9 +861,40 @@ NetLogo 6.4.0
     <metric>gini-index</metric>
     <metric>mean [vision] of turtles</metric>
     <metric>mean [metabolism] of turtles</metric>
-    <steppedValueSet variable="initial-population" first="200" step="200" last="1000"/>
+    <steppedValueSet variable="initial-population" first="100" step="100" last="1000"/>
     <steppedValueSet variable="max-metabolism" first="2" step="2" last="10"/>
     <steppedValueSet variable="max-vision" first="2" step="2" last="10"/>
+  </experiment>
+  <experiment name="pop_sugar_endowment" repetitions="5" sequentialRunOrder="false" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>natural-state? = true</exitCondition>
+    <metric>count turtles</metric>
+    <metric>survival-rate</metric>
+    <metric>last-death</metric>
+    <metric>gini-index</metric>
+    <metric>mean [vision] of turtles</metric>
+    <metric>mean [metabolism] of turtles</metric>
+    <metric>endowment-error</metric>
+    <steppedValueSet variable="initial-population" first="200" step="200" last="1000"/>
+    <steppedValueSet variable="minimum-sugar-endowment" first="5" step="5" last="25"/>
+    <steppedValueSet variable="maximum-sugar-endowment" first="10" step="10" last="50"/>
+  </experiment>
+  <experiment name="sugar_endowment" repetitions="5" sequentialRunOrder="false" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>natural-state? = true</exitCondition>
+    <metric>count turtles</metric>
+    <metric>survival-rate</metric>
+    <metric>last-death</metric>
+    <metric>gini-index</metric>
+    <metric>mean [vision] of turtles</metric>
+    <metric>mean [metabolism] of turtles</metric>
+    <metric>endowment-error</metric>
+    <steppedValueSet variable="minimum-sugar-endowment" first="5" step="5" last="50"/>
+    <steppedValueSet variable="maximum-sugar-endowment" first="10" step="10" last="100"/>
   </experiment>
 </experiments>
 @#$#@#$#@

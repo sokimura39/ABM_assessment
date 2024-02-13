@@ -5,6 +5,7 @@ globals [
   starved-pop     ;; the amount of turtles dead before reaching max-age
   dead-pop        ;; the total amount of turtles dead
   survival-rate   ;; the ratio of dead turtles caused by starvation
+  endowment-error ;; returns true if error in endowment
 ]
 
 turtles-own [
@@ -29,15 +30,17 @@ to setup
   set starved-pop 0
   set dead-pop 0
   set survival-rate 1
-  if maximum-sugar-endowment <= minimum-sugar-endowment [
-    user-message "Oops: the maximum-sugar-endowment must be larger than the minimum-sugar-endowment"
-    stop
-  ]
+  set endowment-error false
   clear-all
   create-turtles initial-population [ turtle-setup ]
   setup-patches
   update-lorenz-and-gini
   reset-ticks
+  if maximum-sugar-endowment <= minimum-sugar-endowment [
+    user-message "Oops: the maximum-sugar-endowment must be larger than the minimum-sugar-endowment"
+    set endowment-error true
+    stop
+  ]
 end
 
 to turtle-setup ;; turtle procedure
@@ -302,7 +305,7 @@ initial-population
 initial-population
 10
 1000
-1000.0
+400.0
 10
 1
 NIL
@@ -395,7 +398,7 @@ max-metabolism
 max-metabolism
 0
 10
-6.0
+4.0
 1
 1
 NIL
@@ -425,7 +428,7 @@ max-max-age
 max-max-age
 0
 200
-75.0
+100.0
 1
 1
 NIL
@@ -828,9 +831,23 @@ NetLogo 6.4.0
     <metric>gini-index</metric>
     <metric>mean [vision] of turtles</metric>
     <metric>mean [metabolism] of turtles</metric>
-    <steppedValueSet variable="initial-population" first="200" step="200" last="1000"/>
+    <steppedValueSet variable="initial-population" first="100" step="100" last="1000"/>
     <steppedValueSet variable="max-vision" first="2" step="2" last="10"/>
     <steppedValueSet variable="max-metabolism" first="2" step="2" last="10"/>
+  </experiment>
+  <experiment name="sugar-endowment" repetitions="5" sequentialRunOrder="false" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>ticks = ((max-max-age) * 5)</exitCondition>
+    <metric>count turtles</metric>
+    <metric>survival-rate</metric>
+    <metric>gini-index</metric>
+    <metric>mean [vision] of turtles</metric>
+    <metric>mean [metabolism] of turtles</metric>
+    <metric>endowment-error</metric>
+    <steppedValueSet variable="minimum-sugar-endowment" first="5" step="5" last="50"/>
+    <steppedValueSet variable="maximum-sugar-endowment" first="10" step="10" last="100"/>
   </experiment>
 </experiments>
 @#$#@#$#@

@@ -2,6 +2,20 @@
 
 ## Aim
 
+This report aims to investigate the impact of various factors to the wealth distribution and the survival rate of turtles in the sugarscape model.
+
+In this report, the following 2 models from the NetLogo Models Library are investigated and compared.
+
+- Sugarscape 2 Constant Growback model [@li2009]
+- Sugarscape 3 Wealth Distribution [@li2009a]
+
+The differences between the 2 models is that "Sugarscape 3" introduces the idea of ageing where turtles who have reached a certain age will die, and that dead turtles will be replaced by a new turtle placed in a random position on the field. 
+The "Sugarscape 2" model can be interpreted as a representation of one generation of turtles, where "Sugarscape 3" models multiple generations.
+
+Research question upon comparison of the 2 models is: is there a difference in the survival rate and the Gini index when considering the reproduction?
+
+My hypothesis is that the wealth distribution among turtles will even out when considering reproduction. The inequality is due to the behaviour of turtles being 'stuck' to different areas with different amount of sugar, thus leading to the fixture of inequality where the 'rich get richer' thanks to the access to more productive patches. The reproduction has the function to redistribute the turtles after a certain amount of time, so more fluidness is expected to be introduced to the system.
+
 ## Methods
 
 ## Results
@@ -9,4 +23,6 @@
 ## Discussion
 
 ## Conclusion
+
+## References
 

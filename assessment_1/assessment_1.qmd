@@ -18,9 +18,73 @@ My hypothesis is that the wealth distribution among turtles will even out when c
 
 ## Methods
 
+We have modified the Sugarscape Models in the NetLogo Models Library [@li2009; @li2009a] enabling us to modify constants on the interface and have reporters present the performance of each model. The behaviour of the models were unchanged.
+
+### Changing variables
+
+Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables.
+
+| Variable | Explanation | Range |
+| --- | --- | --- |
+| `initial_population` | Initial population of turtles. | 200, 400, 600, 800, 1000 |
+| `max-metabolism` | Maximum metabolism of turtles. Metabolism for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 |
+| `max-vision` | Maximum vision of turtles. Vision for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 | 
+| `max-max-age` | The maximum number for the maximum age (the age of death) of turtles. Maximum age for each turtles is assigned randomly between 60% and 100% of this variable. |
+| `minimum-sugar-endowment` <br /> `maximum-sugar-endowment` | The minimum / maximum value for the original sugar value for each turtle. | Min: 5, 10, ..., 50 <br /> Max: 10, 20, ..., 100 |
+
+: The variables and the range considered in this report. 
+
+### Reporters of performance
+
+For each model we have created, we have chosen the following indeces to measure the performance of each model.
+
+- the survival rate of turtles, which will be defined as:
+    - the percentage of turtles alive at the natural state to the initial population (Sugarscape 2)
+    - the percentage of turtles who died because of age (not by starvation) to the total deaths (Sugarscape 3)
+- the Gini Index
+
+The following were observed to supplement the above parameters to identify the state of the models.
+
+- the number of turtles at the natural state
+- the mean vision of alive turtles
+- the mean metabolism of alive turtles
+
+We observed these parameters at the natural state, defined as:
+
+- 100 ticks after the last death (Sugarscape 2)
+- 2 to 5 maximum lifespan lengths after start (Sugarscape 3)
+
+### Comparison between models
+
+When comparing models, all parameters must be aligned to observe the difference in behaviour. The population is compared using the natural state after the inital drop in population occured for the Sugarscape 2 model, in order to compare between natural states of each model.
+
 ## Results
 
+### Survival Rate
+
+The 2 models were compared on the basis of alive turtles at the natural state. Sugarscape 2 model will have less turtles than the initial state, while Sugarscape 3 model will have the same number of turtles as the start.
+
+The observed survival rate for each of the models are shown as follows.
+
+![Comparison of survival rate of the 2 models. Higher survival rates are achieved by lower metabolism, higher vision, and lower population. There seems to be no significant difference in the survival rate between the two models.](image/survival_rate_combined.png)
+
+The survival rate for the 2 models share a similar pattern when the final population is similar. This result ensures our definition of survival rates are decent. 
+
+### Gini Index
+
+The Gini Index for each simulation is plotted as follows:
+
+![Comparison of the Gini Index of the 2 models. Overall, the Sugarscape 3 model tends to have a higher Gini Index compared to the Sugarscape 2 model.](image/gini_index_combined.png)
+
+The Sugarscape 3 model has a higher Gini Index overall, and is less affected by the population of turtles. On the other hand, Sugarscape 2 model has a lower Gini Index, but is highly affected by the population, with an interesting N-shaped pattern that can be observed.
+
+
+
 ## Discussion
+
+By considering the ageing and replacement of turtles, we could 
+
+An interesting pattern was observed for inequality, where by introducing the reproduction scheme the Gini Index increased, indicating higher inequality. This was a counterintuitive result, as the 'resetting' of wealth by each generation seems to lead to even out the distribution of wealth.
 
 ## Conclusion
 

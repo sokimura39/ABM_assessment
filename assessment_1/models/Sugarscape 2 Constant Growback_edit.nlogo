@@ -146,7 +146,9 @@ end
 
 to check-natural
   if ticks > ( last-death + 100 )
-  [ set natural-state? true]
+  [
+    set natural-state? true
+  ]
 end
 
 ;;
@@ -257,9 +259,9 @@ NIL
 
 CHOOSER
 15
-210
+205
 295
-255
+250
 visualization
 visualization
 "no-visualization" "color-agents-by-vision" "color-agents-by-metabolism"
@@ -310,7 +312,7 @@ initial-population
 initial-population
 10
 1000
-400.0
+1000.0
 10
 1
 NIL
@@ -446,7 +448,7 @@ max-vision
 max-vision
 1
 10
-6.0
+10.0
 1
 1
 NIL
@@ -484,6 +486,24 @@ gini-index
 3
 1
 11
+
+PLOT
+1175
+10
+1375
+160
+plot 1
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -16777216 true "" "set-histogram-num-bars 10\nset-plot-x-range 0 (max [sugar / ticks] of turtles + 1)\nset-plot-pen-interval (max [sugar / ticks] of turtles + 1) / 10\nhistogram [sugar / ticks] of turtles"
 
 @#$#@#$#@
 ## WHAT IS IT?

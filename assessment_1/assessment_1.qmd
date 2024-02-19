@@ -49,7 +49,7 @@ The following were observed to supplement the above parameters to identify the s
 - the mean vision of alive turtles
 - the mean metabolism of alive turtles
 
-We observed these parameters at the natural state, defined as:
+We observed these parameters at the natural state. The natural state for each model is defined as follows:
 
 - 100 ticks after the last death (Sugarscape 2)
 - 2 to 5 maximum lifespan lengths after start (Sugarscape 3)
@@ -68,25 +68,39 @@ The observed survival rate for each of the models are shown as follows.
 
 ![Comparison of survival rate of the 2 models. Higher survival rates are achieved by lower metabolism, higher vision, and lower population. There seems to be no significant difference in the survival rate between the two models.](image/survival_rate_combined.png)
 
-The survival rate for the 2 models share a similar pattern when the final population is similar. This result ensures our definition of survival rates are decent. 
-
 ### Gini Index
 
 The Gini Index for each simulation is plotted as follows:
 
 ![Comparison of the Gini Index of the 2 models. Overall, the Sugarscape 3 model tends to have a higher Gini Index compared to the Sugarscape 2 model.](image/gini_index_combined.png)
 
-The Sugarscape 3 model has a higher Gini Index overall, and is less affected by the population of turtles. On the other hand, Sugarscape 2 model has a lower Gini Index, but is highly affected by the population, with an interesting N-shaped pattern that can be observed.
+The Sugarscape 3 model has a higher Gini Index overall, and is less affected by the population of turtles. On the other hand, Sugarscape 2 model has a lower Gini Index, but is highly affected by the population, with an interesting N-shaped pattern that can be observed. This pattern was most dinstinctive in conditions with high vision and moderate metabolism range, as shown in the figure below.
 
+![Gini Index for Sugascape 2 model with `max-vision` == 10 and `max-metabolism` = 4.](image/s2_mvp_gini_filtered.png)
 
 
 ## Discussion
 
-By considering the ageing and replacement of turtles, we could 
+### Survival Rate
+
+Some patterns can be observed for the survival rate. The survival rate for the 2 models share a similar pattern when the final population is similar. This result ensures our definition of survival rates are decent. The trend is showing a steep drop at low and high populations, connected by a relatively flat segment where the survival rate stays unchanged in accordance to population change.
+
+### Gini Index
+
+The results have shown an N-shaped pattern for the relationship between the population and the Gini Index at the natural state. The inequality will increase corresponding to population, but at a certain point will start to decrease, and finally increases again. A snapshot of the natural state and the wealth distribution is shown in the figure below.
+
+![The natural state and its wealth distribution for different initial population.](image/wealth_dist_graphs.png)
+
+
 
 An interesting pattern was observed for inequality, where by introducing the reproduction scheme the Gini Index increased, indicating higher inequality. This was a counterintuitive result, as the 'resetting' of wealth by each generation seems to lead to even out the distribution of wealth.
 
+By considering the ageing and replacement of turtles, 
+
+
 ## Conclusion
+
+We have observed the impact of population and ability of turtles on the wealth distribution and the survival rate of the model. 
 
 ## References
 

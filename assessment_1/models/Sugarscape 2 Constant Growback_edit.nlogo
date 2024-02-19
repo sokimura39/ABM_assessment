@@ -870,7 +870,7 @@ NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="metab_vision_pop" repetitions="5" sequentialRunOrder="false" runMetricsEveryStep="false">
+  <experiment name="metab_vision_pop" repetitions="20" sequentialRunOrder="false" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>

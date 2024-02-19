@@ -81,22 +81,52 @@ The Sugarscape 3 model has a higher Gini Index overall, and is less affected by 
 
 ## Discussion
 
-### Survival Rate
-
-Some patterns can be observed for the survival rate. The survival rate for the 2 models share a similar pattern when the final population is similar. This result ensures our definition of survival rates are decent. The trend is showing a steep drop at low and high populations, connected by a relatively flat segment where the survival rate stays unchanged in accordance to population change.
-
 ### Gini Index
 
-The results have shown an N-shaped pattern for the relationship between the population and the Gini Index at the natural state. The inequality will increase corresponding to population, but at a certain point will start to decrease, and finally increases again. A snapshot of the natural state and the wealth distribution is shown in the figure below.
+#### Relationship with Population
 
-![The natural state and its wealth distribution for different initial population.](image/wealth_dist_graphs.png)
+The results have shown an N-shaped pattern for the relationship between the population and the Gini Index at the natural state. The inequality will increase corresponding to population, but at a certain point will start to decrease, and finally increases again. 
+To identify the reason behind this phenomenon, we analysed the wealth distribution for each model. A snapshot of the natural state and the wealth distribution for a model with different initial population is shown below. The net wealth gained per tick is the amount of sugar for each turtle divided by the ticks passed. This shows the net sugar gain each turtle has achieved per tick, or the difference between the collected sugar and metabolism. 
+
+![Snapshot of natural state (left) and the histogram of wealth distribution for different initial population (`max-vision` == 10 and `max-metabolism` = 4). The range was divided into 10 bins to create histogram, and was plotted according to the net wealth gained per tick.](image/wealth_dist_graphs.png)
+
+We can observe the wealth distribution is separated into distinct groups for all 4 simulations. This may be due to the metabolism having integer values, and the available sugar is steady once the model reaches its natural state. 
+
+The model with initial population of 100 has most of the turtles clustered in the high growth areas indicated by darker yellow, allowing for more sugar for the majority of the turtles. The separation of groups is less obvious compared to the other models.
+
+The second model has 3 distinct groups, clustered around 0, 1 and 2. This can be explained as follows:
+
+- The turtles have a steady income of 3, 2 or 1 depending on the area.
+- Turtles no longer have access to a steady income of 4, observed in the first model.
+
+The third model shows a similar pattern with the second model, with a slightly lower maximum net wealth gained per tick value and a significantly smaller population of the group clustered around 0. This implies each turtle has a slightly smaller income compared to the previous model, and the slight decrease had a fatal impact on the 'poorest' group, leading to a decrease in number. The improvement in the Gini Index was a result of this starvation, not a result of equal distribution of sugar.
+
+The final model sees a shift of the groups to the left, and the groups spreading out. The competition has made it difficult to gain a steady (integer) amount of income throughout the simulation, and lead to a decline in the average income earned every tick. The Gini Index has increased because of the relationship between the two groups; the same absolute difference now has a different ratio, making the poorer group having less overall share of the total wealth.
 
 
+#### Considering Reproduction
 
 An interesting pattern was observed for inequality, where by introducing the reproduction scheme the Gini Index increased, indicating higher inequality. This was a counterintuitive result, as the 'resetting' of wealth by each generation seems to lead to even out the distribution of wealth.
 
-By considering the ageing and replacement of turtles, 
+By considering the ageing and replacement of turtles, the 
 
+
+### Survival Rate
+
+Some patterns can be observed for the survival rate. The survival rate for the 2 models share a similar pattern when the final population is similar. This result ensures our definition of survival rates are decent. The trend is showing a steep drop at low population, followed by a relatively flat segment where the survival rate stays unchanged in accordance to population change.
+
+This can also be explained through the wealth distribution we have observed in the above section. The initial drop is explained by the difference between the second and third model, where the 'poorest' group can no longer survive, leading to a drop in the survival rate. The relatively flat area that follows is illustrated between the third and the fourth model, where the average income decreases but no significant population groups starve.
+
+This can be supported by the relationship between the survival rate and the Gini Index shown below. 
+
+![The relationship between the survival rate of turtles and the Gini Index for the Sugarscape 2 model.](image/s2_mvp_gini_survival.png)
+
+The 'N-shape' of this graph consists of two patterns observed:
+
+1. survival rate does not change significantly while the Gini Index increases 
+2. the survival rate and the Gini Index both drop
+
+The former can appear as a result of the 'left shift' of the wealth distribution histogram, while the latter may be caused by the poorest group forced into starvation.
 
 ## Conclusion
 

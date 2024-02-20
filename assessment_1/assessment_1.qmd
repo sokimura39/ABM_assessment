@@ -1,4 +1,17 @@
-# CASA0011 Assessment 1
+---
+title: Agent-Based Modelling Assessment 1
+author: 'Student number: 23083053'
+bibliography: assessment_1.bib
+csl: harvard-cite-them-right.csl
+format:
+    pdf:
+        papersize: a4
+        geometry: 
+            - top=25mm
+            - left=25mm
+            - right=25mm
+            - bottom=25mm
+---
 
 ## Aim
 
@@ -18,11 +31,11 @@ My hypothesis is that the wealth distribution among turtles will even out when c
 
 ## Methods
 
-We have modified the Sugarscape Models in the NetLogo Models Library [@li2009; @li2009a] enabling us to modify constants on the interface and have reporters present the performance of each model. The behaviour of the models were unchanged.
+We have modified the Sugarscape Models in the NetLogo Models Library [@li2009; @li2009a] enabling us to modify constants on the interface and have reporters present the performance of each model. We have modified the following parameters to observe the relationship between each varible and the performance of each model.
 
 ### Changing variables
 
-Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables.
+Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables for both Sugarscape 2 and 3 models.. All variations of the model were repeated 20 times to acquire a distribution of the results. 
 
 | Variable | Explanation | Range |
 | --- | --- | --- |
@@ -30,7 +43,6 @@ Using the BehaviorSpace function of NetLogo, we have simulated the performance f
 | `max-metabolism` | Maximum metabolism of turtles. Metabolism for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 |
 | `max-vision` | Maximum vision of turtles. Vision for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 | 
 | `max-max-age` | The maximum number for the maximum age (the age of death) of turtles. Maximum age for each turtles is assigned randomly between 60% and 100% of this variable. |
-| `minimum-sugar-endowment` <br /> `maximum-sugar-endowment` | The minimum / maximum value for the original sugar value for each turtle. | Min: 5, 10, ..., 50 <br /> Max: 10, 20, ..., 100 |
 
 : The variables and the range considered in this report. 
 
@@ -41,7 +53,7 @@ For each model we have created, we have chosen the following indeces to measure 
 - the survival rate of turtles, which will be defined as:
     - the percentage of turtles alive at the natural state to the initial population (Sugarscape 2)
     - the percentage of turtles who died because of age (not by starvation) to the total deaths (Sugarscape 3)
-- the Gini Index
+- the Gini Index (ratio of area under the Lorenz curve compared to perfect equality: cumulative proportion of population compared to the cumulative proportion of wealth [@oecd2015])
 
 The following were observed to supplement the above parameters to identify the state of the models.
 
@@ -49,10 +61,12 @@ The following were observed to supplement the above parameters to identify the s
 - the mean vision of alive turtles
 - the mean metabolism of alive turtles
 
-We observed these parameters at the natural state. The natural state for each model is defined as follows:
+### Time of Observations
+
+We observed these parameters at the natural state. We have defined this as follows:
 
 - 100 ticks after the last death (Sugarscape 2)
-- 2 to 5 maximum lifespan lengths after start (Sugarscape 3)
+- observation window of 2 to 5 maximum lifespan lengths after start (Sugarscape 3)
 
 ### Comparison between models
 
@@ -103,13 +117,13 @@ The third model shows a similar pattern with the second model, with a slightly l
 
 The final model sees a shift of the groups to the left, and the groups spreading out. The competition has made it difficult to gain a steady (integer) amount of income throughout the simulation, and lead to a decline in the average income earned every tick. The Gini Index has increased because of the relationship between the two groups; the same absolute difference now has a different ratio, making the poorer group having less overall share of the total wealth.
 
-
 #### Considering Reproduction
 
 An interesting pattern was observed for inequality, where by introducing the reproduction scheme the Gini Index increased, indicating higher inequality. This was a counterintuitive result, as the 'resetting' of wealth by each generation seems to lead to even out the distribution of wealth.
 
-By considering the ageing and replacement of turtles, the 
+![Distribution of wealth in a Sugarscape 3 model at the natural state. `max-vision` = 6, `max-metabolism` = 4, `max-max-age` = 100](image/s3_wealth_skewed.png)
 
+In the simulation, the wealth distribution for the Sugarscape 3 model shows a negatively skewed distribution as shown above. As a result of constantly replacing dead turtles with newborn ones, turtles that are spawn in areas where it is impossible to survive in the Sugarscape 3 model are constantly supplied, leading to a steady amount of the poor population which will starve to death in the near future. 
 
 ### Survival Rate
 
@@ -130,7 +144,8 @@ The former can appear as a result of the 'left shift' of the wealth distribution
 
 ## Conclusion
 
-We have observed the impact of population and ability of turtles on the wealth distribution and the survival rate of the model. 
+We have observed the impact of population and ability of turtles on the wealth distribution and the survival rate of the model. The survival rate and the Gini Index are both essential parameters when measuring the equality of wealth distribution. Our models have revealed that an improvement in the Gini Index (which only considers the surviving population) may be a result of the group with the least wealth starving to death, which is clearly not an ideal state. Further analysis is required to potentially identify a method that is capable of handling both survival rate and the inequality of the surviving.
+Reproduction rules also have great impact on the final output. We have considered a replacement in random locations, but there is room for extended research considering the influence of the parent generation to the characteristics of the newborn. This will enable us to consider the effect of real-life phenomena such as education levels and inheritance of wealth.
 
 ## References
 

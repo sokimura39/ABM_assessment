@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Student number: 23083053">
 
-<title>assessment_1</title>
+<title>Agent-Based Modelling Assessment 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +21,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="assessment_1_files/libs/clipboard/clipboard.min.js"></script>
@@ -43,17 +63,36 @@ ul.task-list li input[type="checkbox"] {
 
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Agent-Based Modelling Assessment 1</h1>
+</div>
 
 
-<section id="casa0011-assessment-1" class="level1">
-<h1>CASA0011 Assessment 1</h1>
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Student number: 23083053 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
 <section id="aim" class="level2">
 <h2 class="anchored" data-anchor-id="aim">Aim</h2>
 <p>This report aims to investigate the impact of various factors to the wealth distribution and the survival rate of turtles in the sugarscape model.</p>
 <p>In this report, the following 2 models from the NetLogo Models Library are investigated and compared.</p>
 <ul>
-<li>Sugarscape 2 Constant Growback model <span class="citation" data-cites="li2009">[@li2009]</span></li>
-<li>Sugarscape 3 Wealth Distribution <span class="citation" data-cites="li2009a">[@li2009a]</span></li>
+<li>Sugarscape 2 Constant Growback model <span class="citation" data-cites="li2009">(<a href="#ref-li2009" role="doc-biblioref">Li and Wilensky, 2009a</a>)</span></li>
+<li>Sugarscape 3 Wealth Distribution <span class="citation" data-cites="li2009a">(<a href="#ref-li2009a" role="doc-biblioref">Li and Wilensky, 2009b</a>)</span></li>
 </ul>
 <p>The differences between the 2 models is that “Sugarscape 3” introduces the idea of ageing where turtles who have reached a certain age will die, and that dead turtles will be replaced by a new turtle placed in a random position on the field. The “Sugarscape 2” model can be interpreted as a representation of one generation of turtles, where “Sugarscape 3” models multiple generations.</p>
 <p>Research question upon comparison of the 2 models is: is there a difference in the survival rate and the Gini index when considering the reproduction?</p>
@@ -61,10 +100,10 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>We have modified the Sugarscape Models in the NetLogo Models Library <span class="citation" data-cites="li2009 li2009a">[@li2009; @li2009a]</span> enabling us to modify constants on the interface and have reporters present the performance of each model. The behaviour of the models were unchanged.</p>
+<p>We have modified the Sugarscape Models in the NetLogo Models Library <span class="citation" data-cites="li2009 li2009a">(<a href="#ref-li2009" role="doc-biblioref">Li and Wilensky, 2009a</a>, <a href="#ref-li2009a" role="doc-biblioref">2009b</a>)</span> enabling us to modify constants on the interface and have reporters present the performance of each model. We have modified the following parameters to observe the relationship between each varible and the performance of each model.</p>
 <section id="changing-variables" class="level3">
 <h3 class="anchored" data-anchor-id="changing-variables">Changing variables</h3>
-<p>Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables.</p>
+<p>Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables for both Sugarscape 2 and 3 models.. All variations of the model were repeated 20 times to acquire a distribution of the results.</p>
 <table class="table">
 <caption>The variables and the range considered in this report.</caption>
 <colgroup>
@@ -100,11 +139,6 @@ ul.task-list li input[type="checkbox"] {
 <td>The maximum number for the maximum age (the age of death) of turtles. Maximum age for each turtles is assigned randomly between 60% and 100% of this variable.</td>
 <td></td>
 </tr>
-<tr class="odd">
-<td><code>minimum-sugar-endowment</code> <br> <code>maximum-sugar-endowment</code></td>
-<td>The minimum / maximum value for the original sugar value for each turtle.</td>
-<td>Min: 5, 10, …, 50 <br> Max: 10, 20, …, 100</td>
-</tr>
 </tbody>
 </table>
 </section>
@@ -117,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
 <li>the percentage of turtles alive at the natural state to the initial population (Sugarscape 2)</li>
 <li>the percentage of turtles who died because of age (not by starvation) to the total deaths (Sugarscape 3)</li>
 </ul></li>
-<li>the Gini Index</li>
+<li>the Gini Index (ratio of area under the Lorenz curve compared to perfect equality: cumulative proportion of population compared to the cumulative proportion of wealth <span class="citation" data-cites="oecd2015">(<a href="#ref-oecd2015" role="doc-biblioref">OECD, 2015</a>)</span>)</li>
 </ul>
 <p>The following were observed to supplement the above parameters to identify the state of the models.</p>
 <ul>
@@ -125,10 +159,13 @@ ul.task-list li input[type="checkbox"] {
 <li>the mean vision of alive turtles</li>
 <li>the mean metabolism of alive turtles</li>
 </ul>
-<p>We observed these parameters at the natural state. The natural state for each model is defined as follows:</p>
+</section>
+<section id="time-of-observations" class="level3">
+<h3 class="anchored" data-anchor-id="time-of-observations">Time of Observations</h3>
+<p>We observed these parameters at the natural state. We have defined this as follows:</p>
 <ul>
 <li>100 ticks after the last death (Sugarscape 2)</li>
-<li>2 to 5 maximum lifespan lengths after start (Sugarscape 3)</li>
+<li>observation window of 2 to 5 maximum lifespan lengths after start (Sugarscape 3)</li>
 </ul>
 </section>
 <section id="comparison-between-models" class="level3">
@@ -193,7 +230,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="considering-reproduction" class="level4">
 <h4 class="anchored" data-anchor-id="considering-reproduction">Considering Reproduction</h4>
 <p>An interesting pattern was observed for inequality, where by introducing the reproduction scheme the Gini Index increased, indicating higher inequality. This was a counterintuitive result, as the ‘resetting’ of wealth by each generation seems to lead to even out the distribution of wealth.</p>
-<p>By considering the ageing and replacement of turtles, the</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="image/s3_wealth_skewed.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Distribution of wealth in a Sugarscape 3 model at the natural state. <code>max-vision</code> = 6, <code>max-metabolism</code> = 4, <code>max-max-age</code> = 100</figcaption>
+</figure>
+</div>
+<p>In the simulation, the wealth distribution for the Sugarscape 3 model shows a negatively skewed distribution as shown above. As a result of constantly replacing dead turtles with newborn ones, turtles that are spawn in areas where it is impossible to survive in the Sugarscape 3 model are constantly supplied, leading to a steady amount of the poor population which will starve to death in the near future.</p>
 </section>
 </section>
 <section id="survival-rate-1" class="level3">
@@ -217,14 +260,24 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>We have observed the impact of population and ability of turtles on the wealth distribution and the survival rate of the model.</p>
+<p>We have observed the impact of population and ability of turtles on the wealth distribution and the survival rate of the model. The survival rate and the Gini Index are both essential parameters when measuring the equality of wealth distribution. Our models have revealed that an improvement in the Gini Index (which only considers the surviving population) may be a result of the group with the least wealth starving to death, which is clearly not an ideal state. Further analysis is required to potentially identify a method that is capable of handling both survival rate and the inequality of the surviving. Reproduction rules also have great impact on the final output. We have considered a replacement in random locations, but there is room for extended research considering the influence of the parent generation to the characteristics of the newborn. This will enable us to consider the effect of real-life phenomena such as education levels and inheritance of wealth.</p>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-</section>
+<section id="references" class="level2 unnumbered">
+
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-li2009" class="csl-entry" role="listitem">
+Li, J. and Wilensky, U. (2009a) <span>“<span>NetLogo Models Library</span>: <span>Sugarscape</span> 2 <span>Constant Growback</span>.”</span> <span>Evanston, IL.</span>: Center for Connected Learning and Computer-Based Modeling, Northwestern University.
+</div>
+<div id="ref-li2009a" class="csl-entry" role="listitem">
+Li, J. and Wilensky, U. (2009b) <span>“<span>NetLogo Models Library</span>: <span>Sugarscape</span> 3 <span>Wealth Distribution</span>.”</span> <span>Evanston, IL.</span>: Center for Connected Learning and Computer-Based Modeling, Northwestern University.
+</div>
+<div id="ref-oecd2015" class="csl-entry" role="listitem">
+OECD (2015) <span>“Inequality - <span>Income</span> inequality - <span>OECD Data</span>,”</span> <em>theOECD</em>. http://data.oecd.org/inequality/income-inequality.htm.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

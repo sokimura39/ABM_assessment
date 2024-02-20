@@ -1,0 +1,27 @@
+"export-plot data (NetLogo 6.4.0)"
+"Sugarscape 3 Wealth Distribution_edit.nlogo"
+"02/19/2024 22:17:04:036 +0000"
+
+"MODEL SETTINGS"
+"maximum-sugar-endowment","max-max-age","minimum-sugar-endowment","visualization","initial-population","max-metabolism","max-vision"
+"25","100","5","""no-visualization""","400","4","6"
+
+"""Wealth distribution"""
+"x min","x max","y min","y max","autoplot?","current pen","legend open?","number of pens"
+"0","185","0","186","true","""default""","false","1"
+
+"pen name","pen down?","mode","interval","color","x"
+"""default""","true","1","18.5","0","166.5"
+
+"""default"""
+"x","y","color","pen down?"
+"0","155","0","true"
+"18.5","84","0","true"
+"37","55","0","true"
+"55.5","33","0","true"
+"74","22","0","true"
+"92.5","18","0","true"
+"111","23","0","true"
+"129.5","3","0","true"
+"148","5","0","true"
+"166.5","2","0","true"

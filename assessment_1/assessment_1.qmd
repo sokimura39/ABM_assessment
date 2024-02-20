@@ -25,9 +25,13 @@ In this report, the following 2 models from the NetLogo Models Library are inves
 The differences between the 2 models is that "Sugarscape 3" introduces the idea of ageing where turtles who have reached a certain age will die, and that dead turtles will be replaced by a new turtle placed in a random position on the field. 
 The "Sugarscape 2" model can be interpreted as a representation of one generation of turtles, where "Sugarscape 3" models multiple generations.
 
-Research question upon comparison of the 2 models is: is there a difference in the survival rate and the Gini index when considering the reproduction?
+### Research question
 
-My hypothesis is that the wealth distribution among turtles will even out when considering reproduction. The inequality is due to the behaviour of turtles being 'stuck' to different areas with different amount of sugar, thus leading to the fixture of inequality where the 'rich get richer' thanks to the access to more productive patches. The reproduction has the function to redistribute the turtles after a certain amount of time, so more fluidness is expected to be introduced to the system.
+How will the survival rate and the Gini Index change according to population growth? Is there a difference in the survival rate and the Gini index when considering the reproduction?
+
+### Hypothesis
+
+The increase in population is expected to lower the survival rate and increase the Gini Index due to intesifying competition. For the comparison between two models, we hypothesise that the wealth distribution among turtles will even out when considering reproduction. Turtles being 'stuck' to different areas with different amount of sugar may be the cause of inequality, and the reproduction processing relocating the turtles after a certain amount of time introduces more fluidness to the system.
 
 ## Methods
 
@@ -35,14 +39,13 @@ We have modified the Sugarscape Models in the NetLogo Models Library [@li2009; @
 
 ### Changing variables
 
-Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables for both Sugarscape 2 and 3 models.. All variations of the model were repeated 20 times to acquire a distribution of the results. 
+Using the BehaviorSpace function of NetLogo, we have simulated the performance for the following combinations of variables for both Sugarscape 2 and 3 models.. All variations of the model were repeated 20 times. 
 
 | Variable | Explanation | Range |
 | --- | --- | --- |
 | `initial_population` | Initial population of turtles. | 200, 400, 600, 800, 1000 |
 | `max-metabolism` | Maximum metabolism of turtles. Metabolism for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 |
 | `max-vision` | Maximum vision of turtles. Vision for each turtle is assigned randomly between 1 and this variable. | 2, 4, 6, 8, 10 | 
-| `max-max-age` | The maximum number for the maximum age (the age of death) of turtles. Maximum age for each turtles is assigned randomly between 60% and 100% of this variable. |
 
 : The variables and the range considered in this report. 
 
@@ -50,20 +53,15 @@ Using the BehaviorSpace function of NetLogo, we have simulated the performance f
 
 For each model we have created, we have chosen the following indeces to measure the performance of each model.
 
-- the survival rate of turtles, which will be defined as:
-    - the percentage of turtles alive at the natural state to the initial population (Sugarscape 2)
-    - the percentage of turtles who died because of age (not by starvation) to the total deaths (Sugarscape 3)
-- the Gini Index (ratio of area under the Lorenz curve compared to perfect equality: cumulative proportion of population compared to the cumulative proportion of wealth [@oecd2015])
+| Reporter | Explanation |
+| :--- | :--- |
+| Survival Rate of Turtles | Defined as the percentage of turtles alive at the natural state (Sugarscape 2), or the percentage of turtles who survived from starvation until their death by age (Sugarscape 3) |
+| Gini Index | Cumulative proportion of wealth compared to the population, defined as the ratio of area under the Lorenz curve compared to perfect equality, implemented in @li2009a |
+| Population at natural age | Population of turtles at the natural state |
 
-The following were observed to supplement the above parameters to identify the state of the models.
+: Observatory statistics reported by the models
 
-- the number of turtles at the natural state
-- the mean vision of alive turtles
-- the mean metabolism of alive turtles
-
-### Time of Observations
-
-We observed these parameters at the natural state. We have defined this as follows:
+These observations were made at the natural state, defined as follows:
 
 - 100 ticks after the last death (Sugarscape 2)
 - observation window of 2 to 5 maximum lifespan lengths after start (Sugarscape 3)
@@ -91,7 +89,6 @@ The Gini Index for each simulation is plotted as follows:
 The Sugarscape 3 model has a higher Gini Index overall, and is less affected by the population of turtles. On the other hand, Sugarscape 2 model has a lower Gini Index, but is highly affected by the population, with an interesting N-shaped pattern that can be observed. This pattern was most dinstinctive in conditions with high vision and moderate metabolism range, as shown in the figure below.
 
 ![Gini Index for Sugascape 2 model with `max-vision` == 10 and `max-metabolism` = 4.](image/s2_mvp_gini_filtered.png)
-
 
 ## Discussion
 

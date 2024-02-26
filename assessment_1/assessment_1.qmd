@@ -66,12 +66,12 @@ We have observed the reporters in @tbl-reporters to measure the performance.
 
 : Observatory statistics reported by the models {#tbl-reporters tbl-colwidths="[30,70]"} 
 
-Observations were made at the natural state, defined in @tbl-naturalstate.
+Considering the warm-up period, observations were made at the natural state defined in @tbl-naturalstate.
 
 | Model | Definition of natural state |
 | --- | --- |
 | Sugarscape 2 | 100 ticks after the last death of turtle |
-| Sugarscape 3 | Observation window of 2 to 5 maximum lifespan lengths (100 ticks) after start |
+| Sugarscape 3 | Observation window of 2 to 5 maximum lifespan lengths (100 ticks) after start,for survival rates, or 5 maximum lifespan lengths for other measurements |
 
 : Definitions of natural state for each model {#tbl-naturalstate tbl-colwidths="[20,80]"}
 
@@ -87,7 +87,7 @@ The observed survival rates are shown in @fig-survivalrate.
 
 ![Comparison of survival rates of the models. Higher survival rates are achieved by lower maximum metabolism, higher maximum vision, and lower population. A similar value is observed between the two models.](image/r_survival_rate_combined.png){#fig-survivalrate}
 
-A significant drop of survival rate is observed for maximum metabolism of 6 and above. Given that the maximum amount of sugar supplied by a patch in Sugarscape is 4, all turtles with metabolism values over 4 do not survive until the natural state.
+A significant drop of survival rate is observed for maximum metabolism of 6 and above. Since the maximum amount of sugar supplied by a patch in Sugarscape is 4, all turtles with metabolism over 4 die before the natural state.
 
 ### Gini Index
 

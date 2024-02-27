@@ -94,7 +94,7 @@ div.csl-indent {
 <li>Sugarscape 2 Constant Growback model <span class="citation" data-cites="li2009">(<a href="#ref-li2009" role="doc-biblioref">Li and Wilensky, 2009a</a>)</span></li>
 <li>Sugarscape 3 Wealth Distribution model <span class="citation" data-cites="li2009a">(<a href="#ref-li2009a" role="doc-biblioref">Li and Wilensky, 2009b</a>)</span></li>
 </ul>
-<p>The differences between the 2 models is that “Sugarscape 3” introduces reproduction and replacement, where turtles who have reached a certain age will die, and dead turtles are replaced by a new turtle placed in a random position. The Sugarscape 2 model can be interpreted as a representation of one generation of turtles, where the Sugarscape 3 model simulates multiple generations.</p>
+<p>The differences between the 2 models is that the Sugarscape 3 model introduces reproduction and replacement, where turtles who have reached a certain age will die, and dead turtles are replaced by a new turtle placed in a random position. The Sugarscape 2 model can be interpreted as a representation of one generation of turtles, where the Sugarscape 3 model simulates multiple generations.</p>
 <section id="research-question" class="level3">
 <h3 class="anchored" data-anchor-id="research-question">Research Question</h3>
 <p>How will the survival rate and the Gini Index change according to population growth? Is there a difference in the survival rate and the Gini Index when considering reproduction?</p>
@@ -294,15 +294,15 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>We have observed the impact of population and characteristics of turtles on the Gini Index and the survival rate of the Sugarscape models. These are both essential parameters when measuring the equality of wealth distribution. Our analysis has revealed that an improvement in the Gini Index may be a result of poor groups starving, thus excluded from calculation. Further development of the Sugarscape 3 model for different reproduction rules provides room for potential future research. By placing newborn turtles in locations in relationship to the parent, instead of a random distribution, may enable us to reflect the real-world parameters of parental influence and inheritance.</p>
 <hr>
-<p>Word count: 1,497 words.</p>
+<p>Word count: 1,499 words.</p>
 <p>The code for this report is available on <a href="https://github.com/sokimura39/ABM_assessment">GitHub</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="appendix" class="level2">
-<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="appendix" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="appendix">Appendix</h2>
 <p>The reporters added to the model are the Gini Index and the survival rate.</p>
-<section id="gini-index-2" class="level3">
-<h3 class="anchored" data-anchor-id="gini-index-2">Gini Index</h3>
+<section id="gini-index-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="gini-index-2">Gini Index</h3>
 <p>The <strong>Gini Index</strong> shows the distribution of wealth among the population, where 0 shows complete inequality and 1 showing complete equality.</p>
 <p>The implementation was done by the following function, inherited from the Sugarscape 3 model <span class="citation" data-cites="li2009a">(<a href="#ref-li2009a" role="doc-biblioref">Li and Wilensky, 2009b</a>)</span> with minor changes.</p>
 <pre class="netlogo"><code>to update-lorenz-and-gini ; turtle context
@@ -314,8 +314,12 @@ div.csl-indent {
   set gini-index-reserve 0
   set lorenz-points []
   repeat num-people [
-    set wealth-sum-so-far (wealth-sum-so-far + item index sorted-wealths)
-    set lorenz-points lput ((wealth-sum-so-far / total-wealth) * 100) lorenz-points
+    set wealth-sum-so-far (
+      wealth-sum-so-far + item index sorted-wealths
+    )
+    set lorenz-points (
+      lput ((wealth-sum-so-far / total-wealth) * 100) lorenz-points
+    )
     set index (index + 1)
     set gini-index-reserve
       gini-index-reserve +
@@ -325,8 +329,8 @@ div.csl-indent {
   set gini-index ((gini-index-reserve / count turtles) * 2)
 end</code></pre>
 </section>
-<section id="survival-rate-2" class="level3">
-<h3 class="anchored" data-anchor-id="survival-rate-2">Survival Rate</h3>
+<section id="survival-rate-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="survival-rate-2">Survival Rate</h3>
 <p>The <strong>survival rate</strong> is the ratio of turtles who have not starved to death. In the Sugarscape 2 model this is the percentage of initial turtles surviving at the natural state, and is reported by the following line of code in the <code>go</code> procedure.</p>
 <pre class="netlogo"><code>  ; Sugarscape 2 model
   set survival-rate ((count turtles) / initial-population)</code></pre>
@@ -345,7 +349,7 @@ end</code></pre>
     run visualization
   ]
 
-  ;; reset the starved ratio after the inital state has passed
+  ;; reset the starved ratio after 2 max ages have passed
   if ticks &lt;= (max-max-age * 2)
   [
     set starved-pop 0

@@ -151,8 +151,12 @@ to update-lorenz-and-gini
   set gini-index-reserve 0
   set lorenz-points []
   repeat num-people [
-    set wealth-sum-so-far (wealth-sum-so-far + item index sorted-wealths)
-    set lorenz-points lput ((wealth-sum-so-far / total-wealth) * 100) lorenz-points
+    set wealth-sum-so-far (
+      wealth-sum-so-far + item index sorted-wealths
+    )
+    set lorenz-points (
+      lput ((wealth-sum-so-far / total-wealth) * 100) lorenz-points
+    )
     set index (index + 1)
     set gini-index-reserve
       gini-index-reserve +

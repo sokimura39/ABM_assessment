@@ -28,19 +28,93 @@ Word count: x words
 
 ## Research Question
 
+How does the urban morphology change when people consider externalities of development on the surrounding environment?
+
 ## ODD Description
+
+In this section, the model created is explained in the ODD protocol proposed by @grimm2006; @grimm2020.
 
 ### Purpose and Patterns
 
+High-rise condominiums may seem to be an attractive choice, given that they have access to great views and more sunlight to the residents, and are also able to provide room for open space - as Le Corbusier has noted in his infamous 5 points of modern architecture [@centredesmonumentsnationaux]. On the other hand, they have a large impact to the surrounding environment, including reduced access to sunlight, more congestion, stronger winds, and change in the landscape. 
+
 ### Entities, State Variables, and Scales
+
+The world is designed as a vertical cylinder as shown in @tbl-world: the x axis representing a 1D-location of buildings, and the y axis representing the height. The patches represent the ground and the surrounding environment.
+
+| Feature | Setting | Additional Information|
+| :--- | --- | --- |
+| `min-pxcor` | 0 | 100 locations in total |
+| `max-pxcor` | 99 | The world wraps horizontally to express a wider area. |
+| `min-pycor` | -1 | Patches on `pycor = -1` are used to represent the ground. |
+| `max-pycor` | 30 | Height of buildings not expected to surpass this value. |
+
+: Dimensions of the world of model. {#tbl-world}
+
+Building units are represented as the turtles, which are stacked on top of each other to form multi-story buildings. 
+They observe the surrounding environment to quantify the amenity level of the position based on the view, access to sunlight, access to open space, and the price.
+
+The entities and the variables used in this model are shown in @tbl-variables.
+
+::: {#tbl-variables layout-nrow=3}
+
+| Patch Variable | Explanation |
+| :--- | :--- |
+| `area-type` | Assigned to ground: classifies if location is an open area or a building exists |
+| `building-height` | Assigned to ground: the height of building on the x position |
+| `num-neighbours` | Assigned to both ground and above ground: the number of building units within `open-range`, showing potential users of open space if patch was transformed into one |
+| `price` | |
+| `shadow` | |
+| `view-north` | Cells between self to the nearest building unit on the north at the same level, capped at `max-view` |
+| `view-south` | Cells between self to the nearest building unit on the south at the same level, capped at `max-view` |
+| `open-space` | |
+| `patch-amenity` | |
+| `patch-hate` | |
+| `patch-net-amenity` | |
+| `is-buildable?` | Whether a building unit can exist in the patch without floating - `true` if all cells below are filled to the ground with building units |
+
+: Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column.
+
+| Turtle Variable | Explanation |
+| :--- | :--- |
+| `amenity` | The  |
+| `hate` | |
+| `net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as `(amenity * selfishness - hate * (100 - selfishness)) / 100` |
+| `is-top?` | A boolean variable storing whether the building unit |
+
+: Turtle (building unit) variables used in the model.
+
+| Global Variables | Explanation | Input from Interface |
+| :--- | :--- | :--- |
+| `floor-area-percentage` | The ratio of building units to the number of spaces in the world | Yes |
+| `num-units` | The number of building units (turtles) in model, calculated as `floor (world-width * floor-area-percentage)` | No |
+| `sun-height` | Solar altitude in degrees, used to calculate shadows from buildings | Yes |
+| `selfishness` | Dictates the ratio of `amenity` and `hate` when calculating the `net-amenity`: 100 % indicates turtles only consider `amenity` of themselves, while 0 % indicates they only consider `hate` from others | Yes |
+| `open-range` | The maximum distance turtles consider accessible to open spaces | Yes |
+| `max-view` | The maximum distance turtles consider for the view: any buildings further away are not considered obstructing the view from building unit | Yes |
+| `light-weight` `view-weight` `open-weight` `price-weight` | Weight of each variable when calculating `amenity` and `hate`. One step of shadow, one unit of view, one open space, and price increase for one level up correspond to the same impact. | Yes |
+
+: Global variables used in the model.
+
+Agents and variables introduced in the model.
+:::
+
+
+
 
 ### Process Overview and Scheduling
 
+
+
 ### Design Concepts
+
+
 
 ### Initialisation
 
 ### Input Data
+
+There are no inputs while the model is running.
 
 ### Submodels
 

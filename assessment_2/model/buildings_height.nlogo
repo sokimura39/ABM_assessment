@@ -75,7 +75,7 @@ end
 ;; set up global variables
 to setup-globals
   ; set number of units
-  set num-units floor (max-pxcor * floor-area-percentage / 100)
+  set num-units floor (world-width * floor-area-percentage / 100)
 
   ; set ground and above ground
   set ground patches with [pycor = -1]
@@ -387,10 +387,10 @@ to visualise
 
     ifelse (visualise-net-amenity = true)
     [
-      set color scale-color green net-amenity (- (light-weight + view-weight + open-weight + price-weight) * 5)  ((light-weight + view-weight + open-weight + price-weight) * 5)
+      set color scale-color blue net-amenity (- (light-weight + view-weight + open-weight + price-weight) * 5)  ((light-weight + view-weight + open-weight + price-weight) * 5)
     ]
     [
-      set color scale-color green amenity (- (light-weight + view-weight + open-weight + price-weight) * 5)  ((light-weight + view-weight + open-weight + price-weight) * 5)
+      set color scale-color blue amenity (- (light-weight + view-weight + open-weight + price-weight) * 5)  ((light-weight + view-weight + open-weight + price-weight) * 5)
     ]
 
   ]
@@ -530,7 +530,7 @@ selfishness
 selfishness
 0
 100
-35.0
+100.0
 1
 1
 %
@@ -674,7 +674,7 @@ TEXTBOX
 85
 440
 235
-456
+458
 Selfishness of Turtles
 16
 125.0

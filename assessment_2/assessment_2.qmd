@@ -1,0 +1,53 @@
+---
+title: Agent-Based Modelling Assessment 1
+author: 'Student number: 23083053'
+bibliography: assessment_2.bib
+csl: harvard-cite-them-right.csl
+format:
+    html:
+        theme: yeti
+    pdf:
+        documentclass: article
+        mainfont: FiraSans-Regular.ttf
+        sansfont: FiraSans-SemiBold.ttf
+        monofont: CascadiaCode.ttf
+        fontsize: 11pt
+        linestretch: 1.1
+        whitespace: small
+        papersize: a4
+        geometry: 
+            - top=25mm
+            - left=25mm
+            - right=25mm
+            - bottom=25mm
+        number-sections: true
+        highlight-style: github
+---
+
+Word count: x words
+
+## Research Question
+
+## ODD Description
+
+### Purpose and Patterns
+
+### Entities, State Variables, and Scales
+
+### Process Overview and Scheduling
+
+### Design Concepts
+
+### Initialisation
+
+### Input Data
+
+### Submodels
+
+## Brief Methodology
+
+{{< pagebreak >}}
+
+## References
+
+

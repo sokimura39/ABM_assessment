@@ -63,26 +63,26 @@ The entities and the variables used in this model are shown in @tbl-variables.
 | `area-type` | Assigned to ground: classifies if location is an open area or a building exists |
 | `building-height` | Assigned to ground: the height of building on the x position |
 | `num-neighbours` | Assigned to both ground and above ground: the number of building units within `open-range`, showing potential users of open space if patch was transformed into one |
-| `price` | |
-| `shadow` | |
+| `price` | The property price of building unit at patch. Assumed to be linear with height, calculated as `pycor + 1` |
+| `shadow` | The strength of shadow cast by tall buildings on the south. Shadows are simulated to be more intense according to the distance to the top of shadow. |
 | `view-north` | Cells between self to the nearest building unit on the north at the same level, capped at `max-view` |
 | `view-south` | Cells between self to the nearest building unit on the south at the same level, capped at `max-view` |
-| `open-space` | |
-| `patch-amenity` | |
-| `patch-hate` | |
-| `patch-net-amenity` | |
+| `open-space` | The number of open space the building unit has access to. A unit has access to open spaces within `open-range` cells horizontally. |
+| `patch-amenity` | The total benefit the building unit at the patch achieves from the view and open space, reducted by the price and shadow, each weighted using the corresponding `xx-weight` variable. |
+| `patch-hate` | The total amount of amenity the other building units are losing (or will lose) as a result of a building cell existing in this patch. When not at the top of building, the removal of the unit results in a shorter building, which is the comparison made in this variable. |
+| `patch-net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as `(amenity * selfishness - hate * (100 - selfishness)) / 100` |
 | `is-buildable?` | Whether a building unit can exist in the patch without floating - `true` if all cells below are filled to the ground with building units |
 
 : Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column.
 
 | Turtle Variable | Explanation |
 | :--- | :--- |
-| `amenity` | The  |
-| `hate` | |
-| `net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as `(amenity * selfishness - hate * (100 - selfishness)) / 100` |
+| `amenity` | The total amount of amenity of building unit. Equal to `patch-amenity` of the patch the turtle is on. |
+| `hate` | The total amount of amenity the unit is decreasing from all other patches. Equal to `patch-hate` of the patch the turtle is on. |
+| `net-amenity` | The net amenity the building has on the world considering `selfishness` Equal to `patch-net-amenity` of te patch the turtle is on. |
 | `is-top?` | A boolean variable storing whether the building unit |
 
-: Turtle (building unit) variables used in the model.
+: Turtle (building unit) variables used in the model. Note that amenity-related values are actually calculated on the patch level and extracted.
 
 | Global Variables | Explanation | Input from Interface |
 | :--- | :--- | :--- |
@@ -111,6 +111,8 @@ Agents and variables introduced in the model.
 
 
 ### Initialisation
+
+
 
 ### Input Data
 

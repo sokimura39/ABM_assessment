@@ -28,21 +28,25 @@ Word count: x words
 
 ## Research Question
 
-How does the urban morphology change when people consider externalities of development on the surrounding environment?
+How does the urban morphology change when people and buildings effectively consider externalities of development on the surrounding environment, rather than simply aiming to maximise its own amenity? What is the ideal form of development that can maximise the amenity of all residents, while maintaining the required floor area?
 
 ## ODD Description
 
-In this section, the model created is explained in the ODD protocol proposed by @grimm2006; @grimm2020.
+The model description follows the ODD (Overview, Design concepts, Details) protocol for describing individual- and agent-based models [@grimm2006], as updated by @grimm2020.
 
 ### Purpose and Patterns
 
-High-rise condominiums may seem to be an attractive choice, given that they have access to great views and more sunlight to the residents, and are also able to provide room for open space - as Le Corbusier has noted in his infamous 5 points of modern architecture [@centredesmonumentsnationaux]. On the other hand, they have a large impact to the surrounding environment, including reduced access to sunlight, more congestion, stronger winds, and change in the landscape. 
+High-rise condominiums may seem to be an attractive choice with great views and plenty of access to sunlight. On the other hand, they have a large impact to the surrounding environment in dense urban areas. In this context, some areas adopt the concept of "neighbouring rights" regulating the infringement of access to sunlight [@li2019a] or implement planning restrictions to preserve urban views and landscape [@tavernor2010]. In some cases the drastic change in the built environment lead to conflicts and lawsuits between high-rise developments and surrounding residents [@sorensen2011].
+
+The model simulates the impact of developments on the surrounding environment, and seeks to figure out the optimal built-up form that accommodates the required floor area.
+
+![Screenshot of the model, showing the buildings created from stacking building blocks, the shadows cast by the buildings, and the most recent movement of a building unit.](image/screenshot_model.png){#fig-screenshot}
 
 ### Entities, State Variables, and Scales
 
-The world is designed as a vertical cylinder as shown in @tbl-world: the x axis representing a 1D-location of buildings, and the y axis representing the height. The patches represent the ground and the surrounding environment.
+The world is designed as a vertical cylinder with dimensions listed in @tbl-world: the x axis representing a one-dimentional location of buildings, and the y axis representing the height. One patch is equivalent to the size one building unit occupies, therefore the scale of the width of the patch is the width of one building, and the height scales to one level height. The 3-dimensional world is reduced to a vertical planar world for simplification.
 
-| Feature | Setting | Additional Information|
+| Feature | Setting | Additional Information |
 | :--- | --- | --- |
 | `min-pxcor` | 0 | 100 locations in total |
 | `max-pxcor` | 99 | The world wraps horizontally to express a wider area. |
@@ -51,60 +55,60 @@ The world is designed as a vertical cylinder as shown in @tbl-world: the x axis 
 
 : Dimensions of the world of model. {#tbl-world}
 
-Building units are represented as the turtles, which are stacked on top of each other to form multi-story buildings. 
-They observe the surrounding environment to quantify the amenity level of the position based on the view, access to sunlight, access to open space, and the price.
+Assuming a northern-hemisphere context, the north is at the right of the screen, and shadows are created on the north side of the building. The patches represent the ground and the surrounding environment, with the lowermost row of patches representing the ground. Time steps do not represent actual temporal measures; in one time step one building units relocates to a different position.
 
-The entities and the variables used in this model are shown in @tbl-variables.
+Building units are represented as the turtles, which are stacked on top of each other to form multi-story buildings. They are shown as blue circles in @fig-screenshot. They observe the surrounding environment to quantify the amenity level of the position based on the view, access to sunlight, access to open space, and the price. The position of the units are snapped to patches. The entities and the variables used in this model are shown in @tbl-variables.
 
 ::: {#tbl-variables layout-nrow=3}
 
-| Patch Variable | Explanation |
+| Global Variables | Explanation | Possible Values | Input from Interface |
+| :--- | :--- | :--- |
+| `floor-area-percentage` | The ratio of building units to the number of spaces in the world | 0 - 500 (%) |Yes |
+| `num-units` | The number of building units (turtles) in model, calculated as `world-width * floor-area-percentage / 100` | 0 - `world-width` * 5 | No |
+| `sun-height` | Solar altitude in degrees, used to calculate shadows from buildings | 0 - 90 (deg)| Yes |
+| `selfishness` | Dictates the ratio of `amenity` and `hate` when calculating the `net-amenity`: 100 % indicates turtles only consider `amenity` of themselves, while 0 % indicates they only consider `hate` from others | 0 - 100 (%) |Yes |
+| `open-range` | The maximum distance turtles consider accessible to open spaces | 0 - 20 |Yes |
+| `max-view` | The maximum distance turtles consider for the view: any buildings further away are not considered obstructing the view from building unit | 0 - 20 |Yes |
+| `light-weight` `view-weight` `open-weight` `price-weight` | Weight of each variable when calculating `amenity` and `hate`. One step of shadow, one unit of view, one open space, and price increase for one level up correspond to the same impact. | 0 - 10 | Yes |
+
+: Global variables used in the model.
+
+| Patch Variable | Explanation | Possible Values |
 | :--- | :--- |
-| `area-type` | Assigned to ground: classifies if location is an open area or a building exists |
-| `building-height` | Assigned to ground: the height of building on the x position |
-| `num-neighbours` | Assigned to both ground and above ground: the number of building units within `open-range`, showing potential users of open space if patch was transformed into one |
-| `price` | The property price of building unit at patch. Assumed to be linear with height, calculated as `pycor + 1` |
-| `shadow` | The strength of shadow cast by tall buildings on the south. Shadows are simulated to be more intense according to the distance to the top of shadow. |
-| `view-north` | Cells between self to the nearest building unit on the north at the same level, capped at `max-view` |
-| `view-south` | Cells between self to the nearest building unit on the south at the same level, capped at `max-view` |
-| `open-space` | The number of open space the building unit has access to. A unit has access to open spaces within `open-range` cells horizontally. |
-| `patch-amenity` | The total benefit the building unit at the patch achieves from the view and open space, reducted by the price and shadow, each weighted using the corresponding `xx-weight` variable. |
-| `patch-hate` | The total amount of amenity the other building units are losing (or will lose) as a result of a building cell existing in this patch. When not at the top of building, the removal of the unit results in a shorter building, which is the comparison made in this variable. |
-| `patch-net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as `(amenity * selfishness - hate * (100 - selfishness)) / 100` |
-| `is-buildable?` | Whether a building unit can exist in the patch without floating - `true` if all cells below are filled to the ground with building units |
+| `area-type` | Assigned to ground: classifies if location is an open area or a building exists | Open or Built |
+| `building-height` | Assigned to ground: the height of building on the x position | 0 - `max-pycor` |
+| `num-neighbours` | Assigned to both ground and above ground: the number of building units within `open-range`, showing potential users of open space if patch was transformed into one | 0 - `max-pycor` * `open-range` * 2 |
+| `price` | The property price of building unit at patch. Assumed to be linear with height, calculated as `pycor + 1` | 1 - `max-pycor` + 1 |
+| `shadow` | The strength of shadow cast by tall buildings on the south. Shadows are simulated to be more intense according to the distance to the top of shadow. | 0 - maximum |
+| `view-north` | Cells between self to the nearest building unit on the north at the same level, capped at `max-view` | 0 - `max view` |
+| `view-south` | Cells between self to the nearest building unit on the south at the same level, capped at `max-view` | 0 - `max-view` |
+| `open-space` | The number of open space the building unit has access to. A unit has access to open spaces within `open-range` cells horizontally. | 0 - `open-range` * 2 |
+| `patch-amenity` | The total benefit the building unit at the patch achieves from the view and open space, reducted by the price and shadow, each weighted using the corresponding `xx-weight` variable. | - |
+| `patch-hate` | The total amount of amenity the other building units are losing (or will lose) as a result of a building cell existing in this patch. When not at the top of building, the removal of the unit results in a shorter building, which is the comparison made in this variable. | - |
+| `patch-net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as `(amenity * selfishness - hate * (100 - selfishness)) / 100` | - |
+| `is-buildable?` | Whether a building unit can exist in the patch without floating - `true` if all cells below are filled to the ground with building units | True / False |
 
 : Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column.
 
-| Turtle Variable | Explanation |
+| Turtle Variable | Explanation | Possible Values |
 | :--- | :--- |
-| `amenity` | The total amount of amenity of building unit. Equal to `patch-amenity` of the patch the turtle is on. |
-| `hate` | The total amount of amenity the unit is decreasing from all other patches. Equal to `patch-hate` of the patch the turtle is on. |
-| `net-amenity` | The net amenity the building has on the world considering `selfishness` Equal to `patch-net-amenity` of te patch the turtle is on. |
-| `is-top?` | A boolean variable storing whether the building unit |
+| `amenity` | The total amount of amenity of building unit. Equal to `patch-amenity` of the patch the turtle is on. | - |
+| `hate` | The total amount of amenity the unit is decreasing from all other patches. Equal to `patch-hate` of the patch the turtle is on. | - |
+| `net-amenity` | The net amenity the building has on the world considering `selfishness` Equal to `patch-net-amenity` of te patch the turtle is on. | - |
+| `is-top?` | A boolean variable storing whether the building unit | True / False |
 
 : Turtle (building unit) variables used in the model. Note that amenity-related values are actually calculated on the patch level and extracted.
-
-| Global Variables | Explanation | Input from Interface |
-| :--- | :--- | :--- |
-| `floor-area-percentage` | The ratio of building units to the number of spaces in the world | Yes |
-| `num-units` | The number of building units (turtles) in model, calculated as `floor (world-width * floor-area-percentage)` | No |
-| `sun-height` | Solar altitude in degrees, used to calculate shadows from buildings | Yes |
-| `selfishness` | Dictates the ratio of `amenity` and `hate` when calculating the `net-amenity`: 100 % indicates turtles only consider `amenity` of themselves, while 0 % indicates they only consider `hate` from others | Yes |
-| `open-range` | The maximum distance turtles consider accessible to open spaces | Yes |
-| `max-view` | The maximum distance turtles consider for the view: any buildings further away are not considered obstructing the view from building unit | Yes |
-| `light-weight` `view-weight` `open-weight` `price-weight` | Weight of each variable when calculating `amenity` and `hate`. One step of shadow, one unit of view, one open space, and price increase for one level up correspond to the same impact. | Yes |
-
-: Global variables used in the model.
 
 Agents and variables introduced in the model.
 :::
 
-
-
-
 ### Process Overview and Scheduling
 
+The flowchart of this model is as illustrated in @fig-flowchart.
 
+![Overview of the model process.](image/flowchart.png){#fig-flowchart}
+
+In each time step, the `amenity` and the `hate` of all current building units and patches that can be built up are calculated. These two measures are aggregated, weighted by the parameter `selfishness` to calculate the 'net amenity' of each unit. Based on this measure, the one unit with the lowest net amenity is chosen to move to a vacant patch where it can maximise the net amenity. After the new locations are confirmed, the model loops again to quantify amenity. This is repeated until the unit with the lowest net amenity can no longer find a place to increase its net amenity.
 
 ### Design Concepts
 
@@ -112,13 +116,57 @@ Agents and variables introduced in the model.
 
 ### Initialisation
 
+The model space is initialised as an abstract physical space. The initialisation procedure is as follows:
 
+1. Patches are set up, with the bottom row (`pycor = -1`) as the ground.
+2. The number of building units are calculated from the floor-area ratio and the width of world.
+3. The building units are allocated random x-coordinates, and are stacked on top of each other to create initial state of buildings.
+4. Based on the environment, the views, open-space, price, and shadows are calculated and reflected in the amenity and hate of each building unit.
 
 ### Input Data
 
 There are no inputs while the model is running.
 
 ### Submodels
+
+In this section, we will briefly cover the determination of amenity and hate for each patch created.
+
+The amenity is calculated from four components: the view from the position, access to open space, the accessibility to light, and the price.
+The view from the building unit is quantified by the number of columns between the nearest building unit with the same height on each side. If one unit has 4 patches in between the next unit at the same height on the north, and 3 patches in between the neighbour at the south, the view is quantified as 7. The view on each side is capped at the global variable `max-view`. 
+The access to open space is quantified as the number of open spaces (ground with no building units) within the horizontal distance of `open-range` from the unit. 
+The accessibility to light is determined by the shadows cast by building units. For each unit, the area of shadow made by itself and all units below are considered to be the triangular area just north of the building, at an angle equal to the height of the sun, and a shadow level of 1 is added to the patch. This is calculated for all building units, therefore the overlap of shadows calculated by units on the same building automatically create a more intense shadow at the bottom: one cell down, one level increase in shadow intensity. This is illustrated by the gray-to-black gradation visible in @fig-screenshot. Patches with multiple high-rise buildings on its south, and considerably lower than the adjacent buildings' heights are simulated to have a more intense shadow. 
+The price is determined solely by the height of the building unit, becoming higher as the elevation increases. The ground floor has a cost of 1, and increases by 1 as the height increases by 1 patch.
+For each building unit at patch $k$, the amenity is calculated from the raw values from @eq-amenity, by adding the amenity gained from the view and the open area, and subtracting the price and the shadows cast on the unit, each weighted by the parameter set by the interface.
+
+$$
+a(k) = \alpha_v v(k) + \alpha_o o(k) - \alpha_l l(k) - \alpha_p p(k) 
+$$ {#eq-amenity}
+
+- $a(k)$: the `amenity` for each building unit at patch $k$
+- $v(k)$: the view from patch, sum of `view-north` and `view-south`
+- $o(k)$: access to open space (`open-space`) from patch
+- $l(k)$: the intensity of shadow (`shadow`)
+- $p(k)$: `price` of property at patch
+- $\alpha$: the weight for each component
+
+The hate is the amount of amenity that was lost as a result of the building unit existing, or will be lost if a building unit was to be built at patch $k$; blocking the view, casting shadows, and consuming potential open space. This is calculated as @eq-hate by comparing the current environment and a scenario without the one unit, making the building one unit lower - equivalent to removing the top unit. The change in the views and the distance are considered, as well as the production of open space - if the building was one unit tall.
+
+$$
+h(k) = \sum_j \Delta_k a(j) = \sum_j \left(a_k(j) - a_{\bar{k}}(j)\right)
+$$ {#eq-hate}
+
+- $h(k)$: the `hate` calculated for patch $k$
+- $j$: all other patches influenced by patch $k$
+- $a_k(j)$: the `amenity` of patch $j$ if a building unit exists in patch $k$
+- $a_{\bar{k}}(j)$: the `amenity` of patch $j$ if a building unit does not exist in patch $k$
+
+The `net-amenity` $A_k$ is calculated by weighting the `amenity` and the `hate` for each patch by the weighting parameter `selfishness` (denoted $\sigma$ (%)), as shown in @eq-net-amenity.
+
+$$
+A_k = \frac{\sigma a(k) - (100 - \sigma)h(k)}{100}
+$$ {#eq-net-amenity}
+
+The amenity, hate, and net amenity of turtles are equal to the corresponding values of the patch the unit exists in.
 
 ## Brief Methodology
 

@@ -28,7 +28,7 @@ Word count: x words
 
 ## Research Question
 
-How does the urban morphology change when people and buildings effectively consider externalities of development on the surrounding environment, rather than simply aiming to maximise its own amenity? What is the ideal form of development that can maximise the amenity of all residents, while maintaining the required floor area?
+How does the urban morphology change when people and buildings effectively consider externalities of development on the surrounding environment, rather than simply aiming to maximise its own amenity? What is the ideal form of development that can maximise the amenity of all residents, while maintaining the required floor area within the district?
 
 ## ODD Description
 
@@ -36,7 +36,7 @@ The model description follows the ODD (Overview, Design concepts, Details) proto
 
 ### Purpose and Patterns
 
-The model simulates the impact of developments on the surrounding environment, and seeks to figure out the optimal built-up form that accommodates the required floor area. Large-scale buildings are essential for an efficient and dense urban environment and may provide high amenity, but may come at the cost of lowering amenity on the surrounding environment by blocking the views and sunlight. This model quantifies these amenities and negative externalities from the perspectives of view, sunlight, access to open space, and price of property. By changing the extent to how much each building considers the externality, this model observes the change in the urban skyline depending on the 'selfishness' of the residents within the area.
+The model simulates the impact of developments on the surrounding environment, and seeks to figure out the optimal built-up form that accommodates the required floor area. Large-scale buildings are essential for an efficient and dense urban environment and may provide high amenity, but may come at the cost of lowering amenity on the surrounding environment by blocking the views and sunlight. By changing the extent to how much each building considers the externality, this model observes the change in the urban skyline depending on the 'selfishness' of the residents within the area.
 
 ![Screenshot of the model, showing the buildings created from stacking building blocks, the shadows cast by the buildings, and the most recent movement of a building unit.](image/screenshot_model.png){#fig-screenshot}
 
@@ -44,14 +44,14 @@ The model simulates the impact of developments on the surrounding environment, a
 
 The world is designed as a vertical cylinder with dimensions listed in @tbl-world: the x axis representing a one-dimentional location of buildings, and the y axis representing the height. One patch is equivalent to the size one building unit occupies, therefore the scale of the width of the patch is the width of one building, and the height scales to one level height. The 3-dimensional world is reduced to a vertical planar world for simplification.
 
-| Feature | Setting | Additional Information |
-| :--- | --- | --- |
+| Feature | Value | Additional Information |
+| :--- | ---: | :--- |
 | `min-pxcor` | 0 | 100 locations in total |
 | `max-pxcor` | 99 | The world wraps horizontally to express a wider area. |
 | `min-pycor` | -1 | Patches on `pycor = -1` are used to represent the ground. |
 | `max-pycor` | 30 | Height of buildings not expected to surpass this value. |
 
-: Dimensions of the world of model. {#tbl-world}
+: Dimensions of the world of model. {#tbl-world tbl-colwidths="[15,15,70]"}
 
 Assuming a northern-hemisphere context, the north is at the right of the screen, and shadows are created on the north side of the building. The patches represent the ground and the surrounding environment, with the lowermost row of patches representing the ground. Time steps do not represent actual temporal measures; in one time step one building units relocates to a different position.
 
@@ -70,10 +70,10 @@ Building units are represented as the turtles, which are stacked on top of each 
 | `light-weight` `view-weight` `open-weight` `price-weight` | Weight of each variable when calculating `amenity` and `hate`. One step of shadow, one unit of view, one open space, and price increase for one level up correspond to the same impact. | 0 - 10 | Yes |
 | `visualise-net-amenity` | When turned on, the `net-amenity` of each patch and turtle are shown in the view. When off, `shadow` visualised for patches and `amenity` for turtles. | True / False | Yes |
 
-: Global variables used in the model.
+: Global variables used in the model. {tbl-colwidths="[30,50,20]"}
 
 | Patch Variable | Explanation | Possible Values |
-| :--- | :--- |
+| :--- | :--- | :--- |
 | `area-type` | Assigned to ground: classifies if location is an open area or a building exists | Open or Built |
 | `building-height` | Assigned to ground: the height of building on the x position | 0 - `max-pycor` |
 | `num-neighbours` | Assigned to both ground and above ground: the number of building units within `open-range`, showing potential users of open space if patch was transformed into one | 0 - `max-pycor` * `open-range` * 2 |
@@ -87,16 +87,16 @@ Building units are represented as the turtles, which are stacked on top of each 
 | `patch-net-amenity` | The net amenity the building has on the whole world, calculating the `amenity` minus the `hate` from others by considering `selfishness`. Calculated as (`amenity` $\times$ `selfishness` - hate $\times$ (100 - `selfishness`)) / 100` | - |
 | `is-buildable?` | Whether a building unit can exist in the patch without floating - `true` if all cells below are filled to the ground with building units | True / False |
 
-: Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column.
+: Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column. {tbl-colwidths="[30,50,20]"}
 
 | Turtle Variable | Explanation | Possible Values |
-| :--- | :--- |
+| :--- | :--- | :--- |
 | `amenity` | The total amount of amenity of building unit. Equal to `patch-amenity` of the patch the turtle is on. | - |
 | `hate` | The total amount of amenity the unit is decreasing from all other patches. Equal to `patch-hate` of the patch the turtle is on. | - |
 | `net-amenity` | The net amenity the building has on the world considering `selfishness` Equal to `patch-net-amenity` of te patch the turtle is on. | - |
 | `is-top?` | A boolean variable storing whether the building unit | True / False |
 
-: Turtle (building unit) variables used in the model. Note that amenity-related values are actually calculated on the patch level and extracted.
+: Turtle (building unit) variables used in the model. Note that amenity-related values are actually calculated on the patch level and extracted. {tbl-colwidths="[30,50,20]"}
 
 Agents and variables introduced in the model.
 :::
@@ -124,9 +124,7 @@ Of the components of the design concepts in the ODD protocol, this report covers
 
 #### Basic Principles
 
-Large scale developments, equipped with great views and plenty of sunlight, may provide new functions and amenity to its users, but they have a large impact on the surrounding environment, blocking views and sunlight from their neighbours. In this context, some countries adopt the concept of "neighbouring rights" regulating the infringement of access to sunlight [@li2019a] or implement planning restrictions to preserve urban views and landscape [@tavernor2010]. Despite of these efforts, drastic change caused by large buildings lead to conflicts and lawsuits between newly-built high-rise developments and surrounding residents [@sorensen2011]. 
-
-Environmental impact assessments (EIA) have been introduced to predict and mitigate these externalities [@glasson2013], but have not been able to mitigate the impacts [@arts2005]. This model, by quantifying these negative externalities and embedding them into each actors' decision-making process, aims to explore the optimal placement of development within the area that the EIA is trying to achieve.
+Large scale developments, equipped with great views and plenty of sunlight, may provide new functions and amenity to its users, but they have a large impact on the surrounding environment, blocking views and sunlight from their neighbours. The significance of these externalities are highlighted through regulations aiming to maintain access to these benefits implemented in some areas [@li2019a; @tavernor2010] and lawsuits occuring between large-scale envoronment-disrupting developments and surrounding residents [@sorensen2011]. Another attempt to internalise the externalities is by environmental impact assessments but without success[@glasson2013; @arts2005]. This model aims to explore the optimal placement of development by proposing a methodology that explicitly quantifies externalities and embed into the maximising factor to directly address this issue.
 
 #### Objectives
 
@@ -134,9 +132,9 @@ The objective measure each turtle seek to maximise is the `net-amenity` measure.
 
 #### Observation
 
-The two main factors of observation are the distribution of building heights, and the amenity of each building unit.
+The two main factors of observation are the distribution of building heights and the amenity of each building unit.
 
-The distribution of building heights are summarised as a histogram in the interface, accompanied by the standard deviation. The standard deviation shows the variance of building heights; a high value indicates high variance - indicating the existence of high-rise buildings and open spaces, while a low value indicates buildings are around the same height. Since the number of units are dictated by the floor-area ratio and remain unchanged, the mean of the building will always be `floor-area-ratio` / 100.
+The distribution of building heights are summarised as a histogram in the interface, accompanied by the standard deviation. The standard deviation shows the variance of building heights; a high value indicates high variance - indicating the existence of high-rise buildings and open spaces, while a low value indicates buildings are around the same height. Since the number of units are dictated by the floor-area ratio and remain unchanged, the mean of the building will always be `floor-area-percentage` / 100.
 
 The `amenity` of each unit is observed from the perspectives of temporal change and distribution. For the temporal change, the mean amenity for all building units are shown in a plot, along with the current value shown as an output. The distribution is shown using a histogram of the amenity, as well as being shown on the graphical output by the colouring of the turtle. In the model interface, the temporal change of `hate` is displayed as well.
 
@@ -149,7 +147,7 @@ The model space is initialised as an abstract physical space, where the area is 
 1. Patches are set up, with the bottom row (`pycor = -1`) as the ground.
 2. The number of building units are calculated from the floor-area ratio and the width of world.
 3. The building units are allocated random x-coordinates, and are stacked on top of each other to create initial state of buildings. Since the locations are assigned randomly, the model is initalised differently every time it is executed.
-4. Based on the environment, the views (`view-north` and `view-south`), `open-space`, `price`, and `shadow` are calculated and reflected in the amenity and hate of each building unit.
+4. The views (`view-north` and `view-south`), `open-space`, `price`, and `shadow` are calculated and aggregated as the amenity of each building unit.
 
 ### Input Data
 
@@ -161,26 +159,24 @@ In this section, we will briefly cover the determination of amenity and hate for
 
 #### Calculation of amenity {#sec-amenity-calculation}
 
-The amenity is calculated from four components: the view from the position, access to open space, the accessibility to light, and the price. Each of the components are illustrated in @fig-variables.
+The amenity is calculated from four components: the view from the position, access to open space, the accessibility to light, and the price, as illustrated in @fig-variables. The methodology for quantification of each component is summarised in @tbl-components-methodology.
 
 ![Illustration of each component for amenity.](image/variables.png){#fig-variables}
 
-The view from the building unit is quantified by the number of columns between the nearest building unit with the same height on each side. If one unit has 4 patches in between the next unit at the same height on the north, and 3 patches in between the neighbour at the south, the view is quantified as 7. The view on each side is capped at the global variable `max-view`. 
-The access to open space is quantified as the number of open spaces (ground with no building units) within the horizontal distance of `open-range` from the unit. 
-The accessibility to light is determined by the shadows cast by building units. For each unit, the area of shadow made by itself and all units below are considered to be the triangular area just north of the building, at an angle equal to the height of the sun, and a shadow level of 1 is added to the patch. This is calculated for all building units, therefore the overlap of shadows calculated by units on the same building automatically create a more intense shadow at the bottom: one cell down, one level increase in shadow intensity. This is illustrated by the gray-to-black gradation visible in @fig-screenshot. Patches with multiple high-rise buildings on its south, and considerably lower than the adjacent buildings' heights are simulated to have a more intense shadow. Shadows from multiple buildings are summed to replicate the cumulative impacts of shadows from multiple high-rise buildings.
-The price is determined solely by the height of the building unit, becoming higher as the elevation increases. The ground floor has a cost of 1, and increases by 1 as the height increases by 1 patch.
-For each building unit at patch $k$, the amenity is calculated from the raw values from @eq-amenity, by adding the amenity gained from the view and the open area, and subtracting the price and the shadows cast on the unit, each weighted by the parameter set by the interface.
+| Component | Notation | Methodology | Range |
+| :--- | ---: | :--- | ---: |
+| View | $v(k)$ | Number of columns between the nearest building unit with the same height on each side, implemented in the model as `view-north` and `view-south` respectively. Each side capped at the global variable `max-view` | 0 - `max-view` for each side |
+| Open Space | $o(k)$ | Number of open spaces (ground with no building units) within the horizontal distance of `open-range` from the unit. | 0 - `open-range` $\times$ 2 |
+| Sunlight | $l(k)$ | Determined by the shadows cast by other building units, calculated as follows: For each unit, the area of shadow made by itself and all units below are considered to be the triangular area north of the building, at an angle equal to the height of the sun. A shadow level of 1 is added to patches within this area, and iterated for all building units. Overlap of shadows calculated by units on the same building automatically create a more intense shadow at the bottom: one cell down, one level increase in shadow intensity, as observable as the gray-to-black gradation visible in @fig-screenshot. Patches with multiple high-rise buildings on its south, and considerably lower than the adjacent buildings' heights are simulated to have a more intense shadow, replicating the cumulative impacts in real life. | - |
+| Price | $p(k)$ | Determined solely by the height of the building unit as `pycor` + 1. | 1 - `max-pycor` + 1 |
+
+: The methodology to calculate each component in the model. The variables in the notation column are used in @eq-amenity, @eq-hate, and @eq-net-amenity. {#tbl-components-methodology tbl-colwidths="[15,15,50,20]"}
+
+For each building unit at patch $k$, the amenity $a(k)$ is calculated from the raw values from @eq-amenity, by adding the amenity gained from the view and the open area, and subtracting the price and the shadows cast on the unit, each weighted by the parameters (denoted below as $\alpha$) set by the interface.
 
 $$
 a(k) = \alpha_v v(k) + \alpha_o o(k) - \alpha_l l(k) - \alpha_p p(k) 
 $$ {#eq-amenity}
-
-- $a(k)$: the `amenity` for each building unit at patch $k$
-- $v(k)$: the view from patch, sum of `view-north` and `view-south`
-- $o(k)$: access to open space (`open-space`) from patch
-- $l(k)$: the intensity of shadow (`shadow`)
-- $p(k)$: `price` of property at patch
-- $\alpha$: the weight for each component
 
 The hate is the amount of amenity that was lost as a result of the building unit existing, or will be lost if a building unit was to be built at patch $k$; blocking the view, casting shadows, and consuming potential open space. This is calculated as @eq-hate by comparing the current environment and a scenario without the one unit, making the building one unit lower - equivalent to removing the top unit. The change in the views and the distance are considered, as well as the production / reduction of open space - if the building was one unit tall.
 
@@ -203,12 +199,35 @@ The amenity, hate, and net amenity of turtles are equal to the corresponding val
 
 #### Relocation of units
 
-One unit within the 5 lowest `net-amenity` is chosen for relocation. The reason that the single lowest one is not directly chosen is to avoid loops and to make the model potentially be able to escape local maxima. The possible destinations are patches that are buildable (`is-buildable`  = `true`) and are not already occupied with a building block: this means an unit can relocate itself to the top of an existing building, or to an open space creating a new building. Of all the possible destinations, it will move to the patch where it can maximise the `net-amenity`; thus maximising the amount of amenity it can achieve while minimising the negative externalities to the surrounding environment, weighted by the `selfishness` variable.
+One unit within the 5 lowest `net-amenity` is chosen for relocation. The reason that the single lowest one is not directly chosen is to avoid loops and to make the model potentially be able to escape local maxima. The possible destinations are patches that are buildable (`is-buildable`  = `true`) and are not already occupied with a building unit: this means an unit can relocate itself to the top of an existing building or to an open space. It will move to the patch where it can maximise the `net-amenity`; thus maximising the amount of amenity it can achieve while minimising the negative externalities to the surrounding environment, weighted by the `selfishness` variable.
 
 ## Brief Methodology
 
-To 
+The aim of the research is to explore the relationship between the selfishness, the characteristics of the built environment, and the amenity, to find out the most optimal form of the urban environment for different density levels.
+We will use the BehaviorSpace function to iterate over different conditions in the density and selfishness, dictated in the model by `floor-area-percentage` and `selfishness` respectively, to maximise the mean amenity of turtles. The variables and measurements are organised in @tbl-methodology-variables. Each condition is repeated 10 times.
 
+::: {#tbl-methodology-variables layout-nrow=2}
+
+| Variable | Range | Increments |
+| --- | ---: | ---: |
+| `floor-area-percentage` | 100 - 500 | 100 |
+| `selfishness` | 0 - 100 | 10 |
+
+: Varying variables in the BehaviorSpace experiment
+
+| Measurement | Explanation |
+| --- | --- |
+| mean `amenity` of building units | Measurement to maximise |
+| standard deviation of `building-height` | To gain insights on the morphology |
+
+: Observing measurements in the BehaviorSpace experiment
+
+Variables and measurements to vary and observe in the BehaviorSpace experiment.
+:::
+
+The observation of measurement variables will be conducted under the usual state, assumed as `ticks` = `floor-area-percentage`.
+
+For each density condition, we will determine the selfishness value that can achieve the maximum amenity among units, and the variance of the building height under this condition. This will allow us to gain insights on the ideal urban environment that can maximise the amenity for the residents as a whole. 
 
 {{< pagebreak >}}
 

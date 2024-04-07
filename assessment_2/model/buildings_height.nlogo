@@ -153,7 +153,7 @@ end
 to move-units
   ; ask the most unhappy turtle
 
-  let moving-candidate (min-one-of turtles [net-amenity])
+  let moving-candidate one-of (min-n-of 5 turtles [net-amenity])
 
   ask moving-candidate
   [
@@ -394,8 +394,6 @@ to visualise
     ]
 
   ]
-
-
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -477,9 +475,9 @@ NIL
 1
 
 SLIDER
-290
+280
 395
-475
+465
 428
 max-view
 max-view
@@ -492,9 +490,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-290
+280
 360
-475
+465
 393
 open-range
 open-range
@@ -530,16 +528,16 @@ selfishness
 selfishness
 0
 100
-100.0
+0.0
 1
 1
 %
 HORIZONTAL
 
 SWITCH
-840
+690
 325
-1090
+890
 358
 visualise-net-amenity
 visualise-net-amenity
@@ -548,17 +546,17 @@ visualise-net-amenity
 -1000
 
 PLOT
-840
+690
 360
-1090
+890
 500
-amenity
+Mean amenity of turtles
 NIL
 NIL
 0.0
 10.0
 0.0
-10.0
+5.0
 true
 false
 "" ""
@@ -566,9 +564,9 @@ PENS
 "amenity" 1.0 0 -16777216 true "" "plot mean [amenity] of turtles"
 
 SLIDER
-500
+480
 360
-685
+665
 393
 light-weight
 light-weight
@@ -581,9 +579,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-500
+480
 395
-685
+665
 428
 view-weight
 view-weight
@@ -596,9 +594,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-500
+480
 430
-685
+665
 463
 open-weight
 open-weight
@@ -611,9 +609,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-500
+480
 465
-685
+665
 498
 price-weight
 price-weight
@@ -626,9 +624,9 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-510
+490
 335
-695
+675
 353
 Weight of Each Amenity
 16
@@ -644,7 +642,7 @@ sun-height
 sun-height
 0
 90
-50.0
+45.0
 1
 1
 deg
@@ -661,9 +659,9 @@ Model Parameters
 1
 
 TEXTBOX
-300
+290
 335
-450
+440
 353
 Neighbour Range
 16
@@ -679,6 +677,111 @@ Selfishness of Turtles
 16
 125.0
 1
+
+PLOT
+890
+360
+1090
+500
+amenity_distribution 
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"set-plot-pen-mode 1\nset-plot-x-range (min [amenity] of turtles) (max [amenity] of turtles) \nset-histogram-num-bars 10" ""
+PENS
+"default" 1.0 0 -16777216 true "" "set-plot-x-range (min [amenity] of turtles) (max [amenity] of turtles) \nset-histogram-num-bars 10\nhistogram ([amenity] of turtles)"
+
+MONITOR
+690
+500
+890
+545
+mean amenity
+mean ([amenity] of turtles)
+2
+1
+11
+
+PLOT
+1090
+15
+1290
+155
+Mean hate of turtles
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"hate" 1.0 0 -16777216 true "" "plot mean [hate] of turtles"
+
+MONITOR
+1090
+155
+1290
+200
+mean hate
+mean [hate] of turtles
+2
+1
+11
+
+PLOT
+1090
+360
+1290
+500
+distribution_building_height
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"set-plot-pen-mode 1\nset-histogram-num-bars min list 10 ((max [building-height] of ground) + 1)\nset-plot-x-range 0 (max [building-height] of ground) " ""
+PENS
+"default" 1.0 0 -16777216 true "" "set-histogram-num-bars min list 10 ((max [building-height] of ground) + 1)\nset-plot-x-range 0 (max [building-height] of ground) \nhistogram ([building-height] of ground)"
+
+MONITOR
+1090
+500
+1290
+545
+std_dev of building height
+standard-deviation ([building-height] of ground)
+2
+1
+11
+
+PLOT
+1090
+220
+1290
+360
+std_dev of building height
+NIL
+NIL
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot standard-deviation ([building-height] of ground)"
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -1026,6 +1129,17 @@ NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="brief_explanation" repetitions="10" sequentialRunOrder="false" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="250"/>
+    <metric>mean [amenity] of turtles</metric>
+    <metric>standard-deviation [building-height] of ground</metric>
+    <steppedValueSet variable="selfishness" first="0" step="10" last="100"/>
+    <steppedValueSet variable="floor-area-percentage" first="100" step="100" last="500"/>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default

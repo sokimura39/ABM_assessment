@@ -8,7 +8,7 @@
 
 <meta name="author" content="Student number: 23083053">
 
-<title>Agent-Based Modelling Assessment 1</title>
+<title>Agent-Based Modelling Assessment 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,7 +68,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Agent-Based Modelling Assessment 1</h1>
+<h1 class="title">Agent-Based Modelling Assessment 2</h1>
 </div>
 
 
@@ -89,34 +89,34 @@ div.csl-indent {
 
 </header>
 
-<p>Word count: x words</p>
+<p>Word count: 1,000 words</p>
 <section id="research-question" class="level2">
 <h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
-<p>How does the urban morphology change when people and buildings effectively consider externalities of development on the surrounding environment, rather than simply aiming to maximise its own amenity? What is the ideal form of development that can maximise the amenity of all residents, while maintaining the required floor area within the district?</p>
+<p>How does the urban morphology change when people and buildings effectively consider externalities of development on the surrounding environment, rather than simply aiming to maximise its own amenity? What is the ideal form of development that can maximise the amenity of all residents within the area?</p>
 </section>
 <section id="odd-description" class="level2">
 <h2 class="anchored" data-anchor-id="odd-description">ODD Description</h2>
-<p>The model description follows the ODD (Overview, Design concepts, Details) protocol for describing individual- and agent-based models <span class="citation" data-cites="grimm2006">(<a href="#ref-grimm2006" role="doc-biblioref">Grimm <em>et al.</em>, 2006</a>)</span>, as updated by <span class="citation" data-cites="grimm2020">Grimm <em>et al.</em> (<a href="#ref-grimm2020" role="doc-biblioref">2020</a>)</span>.</p>
+<p>The model is explained in this section using the ODD (Overview, Design concepts, Details) protocol <span class="citation" data-cites="grimm2006">(<a href="#ref-grimm2006" role="doc-biblioref">Grimm <em>et al.</em>, 2006</a>)</span>, updated by <span class="citation" data-cites="grimm2020">Grimm <em>et al.</em> (<a href="#ref-grimm2020" role="doc-biblioref">2020</a>)</span>.</p>
 <section id="purpose-and-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="purpose-and-patterns">Purpose and Patterns</h3>
-<p>The model simulates the impact of developments on the surrounding environment, and seeks to figure out the optimal built-up form that accommodates the required floor area. Large-scale buildings are essential for an efficient and dense urban environment and may provide high amenity, but may come at the cost of lowering amenity on the surrounding environment by blocking the views and sunlight. By changing the extent to how much each building considers the externality, this model observes the change in the urban skyline depending on the ‘selfishness’ of the residents within the area.</p>
+<p>The model simulates the amenity of developments and its impact on the surrounding environment, and explores the optimal built-up form considering its externalities. This model observes change in the skyline depending on ‘selfishness’ - the extent to which externalities are considered within individuals’ choices.</p>
 <div id="fig-screenshot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="image/screenshot_model.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Screenshot of the model, showing the buildings created from stacking building blocks, the shadows cast by the buildings, and the most recent movement of a building unit.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;1: Screenshot of the model, showing buildings created from stacking units, their shadows, and last movement of unit.</figcaption>
 </figure>
 </div>
 </section>
 <section id="entities-state-variables-and-scales" class="level3">
 <h3 class="anchored" data-anchor-id="entities-state-variables-and-scales">Entities, State Variables, and Scales</h3>
-<p>The world is designed as a vertical cylinder with dimensions listed in <a href="#tbl-world">Table&nbsp;1</a>: the x axis representing a one-dimentional location of buildings, and the y axis representing the height. One patch is equivalent to the size one building unit occupies, therefore the scale of the width of the patch is the width of one building, and the height scales to one level height. The 3-dimensional world is reduced to a vertical planar world for simplification.</p>
+<p>The model is a 2-dimensional simplification of the 3-dimensional world into a vertical cylinder with dimensions listed in <a href="#tbl-world">Table&nbsp;1</a>. The x- and y-axes represent location and height respectively. One patch is the size of a building unit: the width scales to one building’s width, and the height scales to one level height. Representation of components are summarised in <a href="#tbl-entities">Table&nbsp;2</a>.</p>
 <div id="tbl-world" class="anchored">
 <table class="table">
-<caption>Table&nbsp;1: Dimensions of the world of model.</caption>
+<caption>Table&nbsp;1: Dimensions of the modelled world.</caption>
 <colgroup>
 <col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 70%">
+<col style="width: 10%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -149,26 +149,56 @@ div.csl-indent {
 </tbody>
 </table>
 </div>
-<p>Assuming a northern-hemisphere context, the north is at the right of the screen, and shadows are created on the north side of the building. The patches represent the ground and the surrounding environment, with the lowermost row of patches representing the ground. Time steps do not represent actual temporal measures; in one time step one building units relocates to a different position.</p>
-<p>Building units are represented as the turtles, which are stacked on top of each other to form multi-story buildings. They are shown as blue circles in <a href="#fig-screenshot">Figure&nbsp;1</a>. They observe the surrounding environment to quantify the amenity level of the position based on the view, access to sunlight, access to open space, and the price. The position of the units are snapped to patches. The entities and the variables used in this model are shown in <a href="#tbl-variables">Table&nbsp;2</a>.</p>
-<div id="tbl-variables" class="tbl-parent quarto-layout-panel anchored">
-<div class="panel-caption table-caption">
-<p>Table&nbsp;2: Agents and variables introduced in the model.</p>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-variables-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-variables" style="flex-basis: 100.0%;justify-content: center;">
+<div id="tbl-entities" class="anchored">
 <table class="table">
-<caption>(a) Global variables used in the model.</caption>
+<caption>Table&nbsp;2: Entities of model</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 50%">
 <col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Representation in model</th>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Patches</td>
+<td style="text-align: left;">Ground and the surrounding environment</td>
+<td style="text-align: left;">Lowermost row of patches (<code>pycor = -1</code>) represent the ground, all others show the surrounding environment</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Turtles</td>
+<td style="text-align: left;">Building units</td>
+<td style="text-align: left;">Stacked on top of each other to form multi-storey buildings, shown as blue circles in <a href="#fig-screenshot">Figure&nbsp;1</a>. The amenity level is calculated based on the view, access to sunlight, access to open space, and the price of the property on the patch.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time step</td>
+<td style="text-align: left;">One relocation of building unit</td>
+<td style="text-align: left;">In one time step building units are relocated to a different position; time steps are not representations of actual temporal measures.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Variables are shown in <a href="#tbl-global-variables">Table&nbsp;3</a>, <a href="#tbl-patch-variables">Table&nbsp;4</a> and <a href="#tbl-turtle-variables">Table&nbsp;5</a>.</p>
+<div id="tbl-global-variables" class="anchored">
+<table class="table">
+<caption>Table&nbsp;3: Global variables used in model</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 15%">
+<col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Global Variables</th>
 <th style="text-align: left;">Explanation</th>
 <th style="text-align: left;">Possible Values</th>
+<th style="text-align: left;">Input from Interface</th>
 </tr>
 </thead>
 <tbody>
@@ -176,53 +206,59 @@ div.csl-indent {
 <td style="text-align: left;"><code>floor-area-percentage</code></td>
 <td style="text-align: left;">The ratio of building units to the number of spaces in the world</td>
 <td style="text-align: left;">0 - 500 (%)</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>num-units</code></td>
 <td style="text-align: left;">The number of building units (turtles) in model, calculated as <code>world-width</code> <span class="math inline">\(\times\)</span> <code>floor-area-percentage</code> / 100</td>
 <td style="text-align: left;">0 - <code>world-width</code> <span class="math inline">\(\times\)</span> 5</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>sun-height</code></td>
 <td style="text-align: left;">Solar altitude in degrees, used to calculate shadows from buildings</td>
 <td style="text-align: left;">0 - 90 (deg)</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>selfishness</code></td>
 <td style="text-align: left;">Dictates the ratio of <code>amenity</code> and <code>hate</code> when calculating the <code>net-amenity</code>: 100 % indicates turtles only consider <code>amenity</code> of themselves, while 0 % indicates they only consider <code>hate</code> from others</td>
 <td style="text-align: left;">0 - 100 (%)</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>open-range</code></td>
 <td style="text-align: left;">The maximum distance turtles consider accessible to open spaces</td>
 <td style="text-align: left;">0 - 20</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>max-view</code></td>
 <td style="text-align: left;">The maximum distance turtles consider for the view: any buildings further away are not considered obstructing the view from building unit</td>
 <td style="text-align: left;">0 - 20</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>light-weight</code> <code>view-weight</code> <code>open-weight</code> <code>price-weight</code></td>
+<td style="text-align: left;"><code>light-weight</code>, <code>view-weight</code>, <code>open-weight</code>, <code>price-weight</code></td>
 <td style="text-align: left;">Weight of each variable when calculating <code>amenity</code> and <code>hate</code>. One step of shadow, one unit of view, one open space, and price increase for one level up correspond to the same impact.</td>
 <td style="text-align: left;">0 - 10</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>visualise-net-amenity</code></td>
 <td style="text-align: left;">When turned on, the <code>net-amenity</code> of each patch and turtle are shown in the view. When off, <code>shadow</code> visualised for patches and <code>amenity</code> for turtles.</td>
 <td style="text-align: left;">True / False</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-variables-2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-variables" style="flex-basis: 100.0%;justify-content: center;">
+<div id="tbl-patch-variables" class="anchored">
 <table class="table">
-<caption>(b) Patch (environment) variables in this model. Variables are only assigned to cells above ground unless otherwise stated in the explanation column.</caption>
+<caption>Table&nbsp;4: Patch variables, only assigned to patches above ground unless otherwise stated.</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 50%">
+<col style="width: 20%">
+<col style="width: 60%">
 <col style="width: 20%">
 </colgroup>
 <thead>
@@ -236,7 +272,7 @@ div.csl-indent {
 <tr class="odd">
 <td style="text-align: left;"><code>area-type</code></td>
 <td style="text-align: left;">Assigned to ground: classifies if location is an open area or a building exists</td>
-<td style="text-align: left;">Open or Built</td>
+<td style="text-align: left;">Open / Built</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>building-height</code></td>
@@ -246,22 +282,22 @@ div.csl-indent {
 <tr class="odd">
 <td style="text-align: left;"><code>num-neighbours</code></td>
 <td style="text-align: left;">Assigned to both ground and above ground: the number of building units within <code>open-range</code>, showing potential users of open space if patch was transformed into one</td>
-<td style="text-align: left;">0 - <code>max-pycor</code> * <code>open-range</code> * 2</td>
+<td style="text-align: left;">0 - (<code>max-pycor</code> * <code>open-range</code> * 2)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>price</code></td>
 <td style="text-align: left;">The property price of building unit at patch. Assumed to be linear with height, calculated as <code>pycor</code> + 1</td>
-<td style="text-align: left;">1 - <code>max-pycor</code> + 1</td>
+<td style="text-align: left;">1 - (<code>max-pycor</code> + 1)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>shadow</code></td>
-<td style="text-align: left;">The strength of shadow cast by tall buildings on the south. Shadows are simulated to be more intense according to the distance to the top of shadow.</td>
+<td style="text-align: left;">The strength of shadow cast by tall buildings on the south. Shadows are created on the right side of the building - considered as the northern side (assuming the northern hemisphere context). Shadows are simulated to be more intense according to the distance to the top of shadow.</td>
 <td style="text-align: left;">0 - maximum</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>view-north</code></td>
 <td style="text-align: left;">Cells between self to the nearest building unit on the north at the same level, capped at <code>max-view</code></td>
-<td style="text-align: left;">0 - <code>max view</code></td>
+<td style="text-align: left;">0 - <code>max-view</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>view-south</code></td>
@@ -271,34 +307,37 @@ div.csl-indent {
 <tr class="even">
 <td style="text-align: left;"><code>open-space</code></td>
 <td style="text-align: left;">The number of open space the building unit has access to. A unit has access to open spaces within <code>open-range</code> cells horizontally.</td>
-<td style="text-align: left;">0 - <code>open-range</code> <span class="math inline">\(\times\)</span> 2</td>
+<td style="text-align: left;">0 - (<code>open-range</code> <span class="math inline">\(\times\)</span> 2)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>patch-amenity</code></td>
 <td style="text-align: left;">The total benefit the building unit at the patch achieves from the view and open space, reducted by the price and shadow, each weighted using the corresponding <code>xx-weight</code> variable.</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">any value</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>patch-hate</code></td>
 <td style="text-align: left;">The total amount of amenity the other building units are losing (or will lose) as a result of a building cell existing in this patch. When not at the top of building, the removal of the unit results in a shorter building, which is the comparison made in this variable.</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">any value</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>patch-net-amenity</code></td>
-<td style="text-align: left;">The net amenity the building has on the whole world, calculating the <code>amenity</code> minus the <code>hate</code> from others by considering <code>selfishness</code>. Calculated as (<code>amenity</code> <span class="math inline">\(\times\)</span> <code>selfishness</code> - hate <span class="math inline">\(\times\)</span> (100 - <code>selfishness</code>)) / 100<code>| - | |</code>is-buildable?<code>| Whether a building unit can exist in the patch without floating -</code>true` if all cells below are filled to the ground with building units</td>
+<td style="text-align: left;">The net amenity the building has on the whole world, calculating the <code>amenity</code> minus the <code>hate</code> from others by considering <code>selfishness</code>. Calculated as (<code>amenity</code> <span class="math inline">\(\times\)</span> <code>selfishness</code> - hate <span class="math inline">\(\times\)</span> (100 - <code>selfishness</code>)) / 100</td>
+<td style="text-align: left;">any value</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>is-buildable?</code></td>
+<td style="text-align: left;">Whether a building unit can exist in the patch without floating. <code>true</code> if all cells below are filled to the ground with building units; this can be summarised as: it is located directly above the ground (<code>pxcor</code> = 0), is already occupied with a building unit, or the patch directly below is occupied with a building unit.</td>
 <td style="text-align: left;">True / False</td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-variables-3" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-variables" style="flex-basis: 100.0%;justify-content: center;">
+<div id="tbl-turtle-variables" class="anchored">
 <table class="table">
-<caption>(c) Turtle (building unit) variables used in the model. Note that amenity-related values are actually calculated on the patch level and extracted.</caption>
+<caption>Table&nbsp;5: Turtle variables. Amenity-related values are inherited from corresponding patch variables.</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 50%">
+<col style="width: 20%">
+<col style="width: 60%">
 <col style="width: 20%">
 </colgroup>
 <thead>
@@ -312,17 +351,17 @@ div.csl-indent {
 <tr class="odd">
 <td style="text-align: left;"><code>amenity</code></td>
 <td style="text-align: left;">The total amount of amenity of building unit. Equal to <code>patch-amenity</code> of the patch the turtle is on.</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">any value</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>hate</code></td>
 <td style="text-align: left;">The total amount of amenity the unit is decreasing from all other patches. Equal to <code>patch-hate</code> of the patch the turtle is on.</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">any value</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>net-amenity</code></td>
 <td style="text-align: left;">The net amenity the building has on the world considering <code>selfishness</code> Equal to <code>patch-net-amenity</code> of te patch the turtle is on.</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">any value</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>is-top?</code></td>
@@ -332,54 +371,86 @@ div.csl-indent {
 </tbody>
 </table>
 </div>
-</div>
-</div>
 </section>
 <section id="process-overview-and-scheduling" class="level3">
 <h3 class="anchored" data-anchor-id="process-overview-and-scheduling">Process Overview and Scheduling</h3>
-<p>The flowchart of this model is as illustrated in <a href="#fig-flowchart">Figure&nbsp;2</a>.</p>
 <div id="fig-flowchart" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="image/flowchart.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Overview of the model process.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2: Flowchart of the process</figcaption>
 </figure>
 </div>
-<p>In each time step, the first step is to determine whether it is physically possible to have an unit on the patch without it floating. A patch is considered buildable and <code>is-buildable?</code> set to true if:</p>
-<ul>
-<li>it is located directly above the ground (<code>pxcor</code> = 0)</li>
-<li>it is already occupied with a building unit</li>
-<li>the patch directly below is occupied with a building unit</li>
-</ul>
-<p>For all patches considered buildable, <code>amenity</code> and the <code>hate</code> of all current building units and patches that can be built up are calculated. These two measures are aggregated, weighted by the parameter <code>selfishness</code> to calculate the ‘net amenity’ of each unit. Based on this measure, the one unit with the lowest net amenity is chosen to move to a vacant patch where it can maximise the net amenity. After the new locations are confirmed, the model loops again to quantify amenity. This is repeated until the unit with the lowest net amenity can no longer find a place to increase its net amenity.</p>
-<p>The morphology of the buildings are quantified by the distribution of building heights. The performance is measured using the average <code>amenity</code> of all building units. These measures are reported every time step at the interface.</p>
+<p>The flowchart is shown in <a href="#fig-flowchart">Figure&nbsp;2</a>. In each time step, amenity measures are calculated for all buildable patches, and one low-performing unit is relocated to maximise the <code>net-amenity</code>. This process is explained in detail at <a href="#sec-relocation">Section&nbsp;2.7.2</a>.</p>
+<p>The urban morphology is observed by the distribution of building heights. Performance of the model is measured using the average <code>amenity</code> of building units. These are reported every time step.</p>
 </section>
 <section id="design-concepts" class="level3">
 <h3 class="anchored" data-anchor-id="design-concepts">Design Concepts</h3>
-<p>Of the components of the design concepts in the ODD protocol, this report covers the basic principles, objectives and observation.</p>
+<p>This report covers the basic principles, objectives and observation of the ODD protocol.</p>
 <section id="basic-principles" class="level4">
 <h4 class="anchored" data-anchor-id="basic-principles">Basic Principles</h4>
-<p>Large scale developments, equipped with great views and plenty of sunlight, may provide new functions and amenity to its users, but they have a large impact on the surrounding environment, blocking views and sunlight from their neighbours. The significance of these externalities are highlighted through regulations aiming to maintain access to these benefits implemented in some areas <span class="citation" data-cites="li2019a tavernor2010">(<a href="#ref-tavernor2010" role="doc-biblioref">Tavernor and Gassner, 2010</a>; <a href="#ref-li2019a" role="doc-biblioref">Li <em>et al.</em>, 2019</a>)</span> and lawsuits occuring between large-scale envoronment-disrupting developments and surrounding residents <span class="citation" data-cites="sorensen2011">(<a href="#ref-sorensen2011" role="doc-biblioref">Sorensen, 2011</a>)</span>. Another attempt to internalise the externalities is by environmental impact assessments but without success<span class="citation" data-cites="glasson2013 arts2005">(<a href="#ref-arts2005" role="doc-biblioref">Arts, Tomlinson and Voogd, 2005</a>; <a href="#ref-glasson2013" role="doc-biblioref">Glasson and Therivel, 2013</a>)</span>. This model aims to explore the optimal placement of development by proposing a methodology that explicitly quantifies externalities and embed into the maximising factor to directly address this issue.</p>
+<p>Large scale developments provide high amenity to its occupants, but impact the surrounding environment by blocking views and sunlight. The significance of these externalities are highlighted by regulations aiming to maintain these benefits <span class="citation" data-cites="li2019a tavernor2010">(<a href="#ref-tavernor2010" role="doc-biblioref">Tavernor and Gassner, 2010</a>; <a href="#ref-li2019a" role="doc-biblioref">Li <em>et al.</em>, 2019</a>)</span>, lawsuits between large-scale developments and surrounding residents <span class="citation" data-cites="sorensen2011">(<a href="#ref-sorensen2011" role="doc-biblioref">Sorensen, 2011</a>)</span>, and environmental impact assessments internalising externalities <span class="citation" data-cites="glasson2013 arts2005">(<a href="#ref-arts2005" role="doc-biblioref">Arts, Tomlinson and Voogd, 2005</a>; <a href="#ref-glasson2013" role="doc-biblioref">Glasson and Therivel, 2013</a>)</span>. This model explores the optimal vertical allocation of development by quantifying and embedding externalities into individual decisions.</p>
 </section>
 <section id="objectives" class="level4">
 <h4 class="anchored" data-anchor-id="objectives">Objectives</h4>
-<p>The objective measure each turtle seek to maximise is the <code>net-amenity</code> measure. This is the weighted aggregation of the amenity of itself and the negative impact to others, the weight being dictated by the global variable <code>selfishness</code>. With maximum selfishness units only consider their own amenity, and units will only consider impact mitigation on others when set to 0. The details of the calculation is explained in <a href="#sec-amenity-calculation">Section&nbsp;2.7.1</a>. Agents aim to optimise the outcome of a ‘good balance’ between own satisfaction and its impact on the surrounding.</p>
+<p>Each unit seeks to maximise the <code>net-amenity</code>, shown in <a href="#tbl-turtle-variables">Table&nbsp;5</a> and explained at <a href="#sec-amenity-calculation">Section&nbsp;2.7.1</a>. They aim to achieve an ‘optimal balance’ between maximising its satisfaction and mitigating its impact on surroundings.</p>
 </section>
-<section id="observation" class="level4">
-<h4 class="anchored" data-anchor-id="observation">Observation</h4>
-<p>The two main factors of observation are the distribution of building heights and the amenity of each building unit.</p>
-<p>The distribution of building heights are summarised as a histogram in the interface, accompanied by the standard deviation. The standard deviation shows the variance of building heights; a high value indicates high variance - indicating the existence of high-rise buildings and open spaces, while a low value indicates buildings are around the same height. Since the number of units are dictated by the floor-area ratio and remain unchanged, the mean of the building will always be <code>floor-area-percentage</code> / 100.</p>
-<p>The <code>amenity</code> of each unit is observed from the perspectives of temporal change and distribution. For the temporal change, the mean amenity for all building units are shown in a plot, along with the current value shown as an output. The distribution is shown using a histogram of the amenity, as well as being shown on the graphical output by the colouring of the turtle. In the model interface, the temporal change of <code>hate</code> is displayed as well.</p>
-<p>We must note that it is not possible to compare between scenarios with different weights for each amenity component.</p>
+<section id="sec-observation" class="level4">
+<h4 class="anchored" data-anchor-id="sec-observation">Observation</h4>
+<p>Two factors are observed: distribution of building heights and the amenity of each unit. Each criteria is observed in plots, monitors, and the view within the interface with measurements summarised in <a href="#tbl-observations">Table&nbsp;6</a>.</p>
+<div id="tbl-observations" class="anchored">
+<table class="table">
+<caption>Table&nbsp;6: Observations in the model</caption>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Factor</th>
+<th style="text-align: left;">Sub-factor</th>
+<th style="text-align: left;">Observation</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Building height</td>
+<td style="text-align: left;">Distribution</td>
+<td style="text-align: left;">Histogram / standard deviation of height</td>
+<td style="text-align: left;">A high standard deviation indicates existence of high-rise buildings and open spaces, low variance indicates buildings aligned around mean height of (<code>floor-area-percentage</code> / 100)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Temporal change</td>
+<td style="text-align: left;">Change in standard deviation of height</td>
+<td style="text-align: left;">Temporal change of standard deviation is shown with plot on the interface.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Amenity</td>
+<td style="text-align: left;">Distribution</td>
+<td style="text-align: left;">Histogram of <code>amenity</code></td>
+<td style="text-align: left;">The distribution of amenity illustrates the inequality between each unit. The colour of the turtle also illustrates the amenity of each turtle.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Temporal Change</td>
+<td style="text-align: left;">Change in mean <code>amenity</code> and <code>hate</code></td>
+<td style="text-align: left;">Shown in plot in interface. While <code>amenity</code> is the main factor to observe, the <code>hate</code> is shown as well.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </section>
 <section id="initialisation" class="level3">
 <h3 class="anchored" data-anchor-id="initialisation">Initialisation</h3>
-<p>The model space is initialised as an abstract physical space, where the area is required to accommodate the floor area ratio determined by the input from interface. The initialisation procedure is as follows:</p>
+<p>The model is initialised as an abstract physical space, accommodating units determined by the <code>floor-area-percentage</code>. Initialisation procedure is as follows:</p>
 <ol type="1">
-<li>Patches are set up, with the bottom row (<code>pycor = -1</code>) as the ground.</li>
-<li>The number of building units are calculated from the floor-area ratio and the width of world.</li>
-<li>The building units are allocated random x-coordinates, and are stacked on top of each other to create initial state of buildings. Since the locations are assigned randomly, the model is initalised differently every time it is executed.</li>
-<li>The views (<code>view-north</code> and <code>view-south</code>), <code>open-space</code>, <code>price</code>, and <code>shadow</code> are calculated and aggregated as the amenity of each building unit.</li>
+<li>Patches are set up, the bottom row (<code>pycor = -1</code>) as the ground.</li>
+<li>Number of building units are calculated from the <code>floor-area-percentage</code> and the width of world.</li>
+<li>Units are allocated random x-coordinates and stacked. Model is initialised differently every time due to this random allocation.</li>
 </ol>
 </section>
 <section id="input-data" class="level3">
@@ -388,31 +459,31 @@ div.csl-indent {
 </section>
 <section id="submodels" class="level3">
 <h3 class="anchored" data-anchor-id="submodels">Submodels</h3>
-<p>In this section, we will briefly cover the determination of amenity and hate for each patch created, and the relocation process.</p>
+<p>The calculation of amenity measures and the relocation process are explained in this section.</p>
 <section id="sec-amenity-calculation" class="level4">
-<h4 class="anchored" data-anchor-id="sec-amenity-calculation">Calculation of amenity</h4>
-<p>The amenity is calculated from four components: the view from the position, access to open space, the accessibility to light, and the price, as illustrated in <a href="#fig-variables">Figure&nbsp;3</a>. The methodology for quantification of each component is summarised in <a href="#tbl-components-methodology">Table&nbsp;3</a>.</p>
+<h4 class="anchored" data-anchor-id="sec-amenity-calculation">Calculation of Amenity</h4>
+<p>Amenity is calculated from four components: view, access to open space, accessibility to light, and price, as illustrated in <a href="#fig-variables">Figure&nbsp;3</a>. <a href="#tbl-components-methodology">Table&nbsp;7</a> shows how each measure is quantified.</p>
 <div id="fig-variables" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="image/variables.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Illustration of each component for amenity.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;3: Illustration of each amenity component</figcaption>
 </figure>
 </div>
 <div id="tbl-components-methodology" class="anchored">
 <table class="table">
-<caption>Table&nbsp;3: The methodology to calculate each component in the model. The variables in the notation column are used in <a href="#eq-amenity">Equation&nbsp;1</a>, <a href="#eq-hate">Equation&nbsp;2</a>, and <a href="#eq-net-amenity">Equation&nbsp;3</a>.</caption>
+<caption>Table&nbsp;7: The methodology to calculate each component. Variables in the notation column are used in <a href="#eq-amenity">Equation&nbsp;1</a>, <a href="#eq-hate">Equation&nbsp;2</a>, and <a href="#eq-net-amenity">Equation&nbsp;3</a>.</caption>
 <colgroup>
 <col style="width: 15%">
-<col style="width: 15%">
+<col style="width: 10%">
 <col style="width: 50%">
-<col style="width: 20%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Component</th>
 <th style="text-align: right;">Notation</th>
 <th style="text-align: left;">Methodology</th>
-<th style="text-align: right;">Range</th>
+<th style="text-align: left;">Range</th>
 </tr>
 </thead>
 <tbody>
@@ -420,118 +491,116 @@ div.csl-indent {
 <td style="text-align: left;">View</td>
 <td style="text-align: right;"><span class="math inline">\(v(k)\)</span></td>
 <td style="text-align: left;">Number of columns between the nearest building unit with the same height on each side, implemented in the model as <code>view-north</code> and <code>view-south</code> respectively. Each side capped at the global variable <code>max-view</code></td>
-<td style="text-align: right;">0 - <code>max-view</code> for each side</td>
+<td style="text-align: left;">0 - <code>max-view</code> for each side</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Open Space</td>
 <td style="text-align: right;"><span class="math inline">\(o(k)\)</span></td>
 <td style="text-align: left;">Number of open spaces (ground with no building units) within the horizontal distance of <code>open-range</code> from the unit.</td>
-<td style="text-align: right;">0 - <code>open-range</code> <span class="math inline">\(\times\)</span> 2</td>
+<td style="text-align: left;">0 - (<code>open-range</code> <span class="math inline">\(\times\)</span> 2)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Sunlight</td>
 <td style="text-align: right;"><span class="math inline">\(l(k)\)</span></td>
-<td style="text-align: left;">Determined by the shadows cast by other building units, calculated as follows: For each unit, the area of shadow made by itself and all units below are considered to be the triangular area north of the building, at an angle equal to the height of the sun. A shadow level of 1 is added to patches within this area, and iterated for all building units. Overlap of shadows calculated by units on the same building automatically create a more intense shadow at the bottom: one cell down, one level increase in shadow intensity, as observable as the gray-to-black gradation visible in <a href="#fig-screenshot">Figure&nbsp;1</a>. Patches with multiple high-rise buildings on its south, and considerably lower than the adjacent buildings’ heights are simulated to have a more intense shadow, replicating the cumulative impacts in real life.</td>
-<td style="text-align: right;">-</td>
+<td style="text-align: left;">Determined by the shadows cast by other building units. For each unit, the area of shadow made by itself and all units below are considered to be the triangular area north of the building, at an angle equal to the height of the sun. A shadow level of 1 is added to patches within this area, and iterated for all building units. Overlap of shadows calculated by units on the same building automatically create a more intense shadow at the bottom: one cell down, one level increase in shadow intensity, as observable as the gray-to-black gradation visible in <a href="#fig-screenshot">Figure&nbsp;1</a>. Patches with multiple high-rise buildings on its south are simulated to have a more intense shadow, replicating the cumulative impacts in real life.</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Price</td>
 <td style="text-align: right;"><span class="math inline">\(p(k)\)</span></td>
-<td style="text-align: left;">Determined solely by the height of the building unit as <code>pycor</code> + 1.</td>
-<td style="text-align: right;">1 - <code>max-pycor</code> + 1</td>
+<td style="text-align: left;">Determined solely by the height of the building unit as (<code>pycor</code> + 1).</td>
+<td style="text-align: left;">1 - (<code>max-pycor</code> + 1)</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>For each building unit at patch <span class="math inline">\(k\)</span>, the amenity <span class="math inline">\(a(k)\)</span> is calculated from the raw values from <a href="#eq-amenity">Equation&nbsp;1</a>, by adding the amenity gained from the view and the open area, and subtracting the price and the shadows cast on the unit, each weighted by the parameters (denoted below as <span class="math inline">\(\alpha\)</span>) set by the interface.</p>
+<p>For patch <span class="math inline">\(k\)</span>, <code>amenity</code> <span class="math inline">\(a(k)\)</span> is calculated by <a href="#eq-amenity">Equation&nbsp;1</a>. Each component is weighted by the corresponding weight parameter (<span class="math inline">\(\alpha\)</span>).</p>
 <p><span id="eq-amenity"><span class="math display">\[
 a(k) = \alpha_v v(k) + \alpha_o o(k) - \alpha_l l(k) - \alpha_p p(k)
 \tag{1}\]</span></span></p>
-<p>The hate is the amount of amenity that was lost as a result of the building unit existing, or will be lost if a building unit was to be built at patch <span class="math inline">\(k\)</span>; blocking the view, casting shadows, and consuming potential open space. This is calculated as <a href="#eq-hate">Equation&nbsp;2</a> by comparing the current environment and a scenario without the one unit, making the building one unit lower - equivalent to removing the top unit. The change in the views and the distance are considered, as well as the production / reduction of open space - if the building was one unit tall.</p>
+<p>The <code>hate</code> (<span class="math inline">\(h(k)\)</span>) is the <code>amenity</code> lost due to the existence of, or if there existed, a building unit at <span class="math inline">\(k\)</span>, by blocking views, casting shadows, and consuming open space. This is calculated by <a href="#eq-hate">Equation&nbsp;2</a>, comparing the current environment and when unit is removed. Unit removal makes the building height lower, equivalent to removing the top unit of building.</p>
 <p><span id="eq-hate"><span class="math display">\[
 h(k) = \sum_j \Delta_k a(j) = \sum_j \left(a_k(j) - a_{\bar{k}}(j)\right)
 \tag{2}\]</span></span></p>
 <ul>
-<li><span class="math inline">\(h(k)\)</span>: the <code>hate</code> calculated for patch <span class="math inline">\(k\)</span></li>
-<li><span class="math inline">\(j\)</span>: all other patches influenced by patch <span class="math inline">\(k\)</span></li>
-<li><span class="math inline">\(a_k(j)\)</span>: the <code>amenity</code> of patch <span class="math inline">\(j\)</span> if a building unit exists in patch <span class="math inline">\(k\)</span></li>
-<li><span class="math inline">\(a_{\bar{k}}(j)\)</span>: the <code>amenity</code> of patch <span class="math inline">\(j\)</span> if a building unit does not exist in patch <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(j\)</span>: patches influenced by <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(a_k(j)\)</span>: <code>amenity</code> of patch <span class="math inline">\(j\)</span> if building unit exists in <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(a_{\bar{k}}(j)\)</span>: <code>amenity</code> of patch <span class="math inline">\(j\)</span> if building unit does not exist in <span class="math inline">\(k\)</span></li>
 </ul>
-<p>The <code>net-amenity</code> <span class="math inline">\(A_k\)</span> is calculated by weighting the <code>amenity</code> and the <code>hate</code> for each patch by the weighting parameter <code>selfishness</code> (denoted <span class="math inline">\(\sigma\)</span> (%)), as shown in <a href="#eq-net-amenity">Equation&nbsp;3</a>.</p>
+<p>The <code>net-amenity</code> <span class="math inline">\(A_k\)</span> is calculated by <a href="#eq-net-amenity">Equation&nbsp;3</a>, aggregating <code>amenity</code> and <code>hate</code> by the weighting parameter <code>selfishness</code> (<span class="math inline">\(\sigma\)</span> (%)). With 100% selfishness, units only consider their own amenity, and only consider impact mitigation on others when selfishness is 0.</p>
 <p><span id="eq-net-amenity"><span class="math display">\[
 A_k = \frac{\sigma a(k) - (100 - \sigma)h(k)}{100}
 \tag{3}\]</span></span></p>
-<p>The amenity, hate, and net amenity of turtles are equal to the corresponding values of the patch the unit exists in.</p>
+<p>The <code>amenity</code>, <code>hate</code>, and <code>net-amenity</code> of turtles are equal to corresponding values of the patch the unit resides.</p>
 </section>
-<section id="relocation-of-units" class="level4">
-<h4 class="anchored" data-anchor-id="relocation-of-units">Relocation of units</h4>
-<p>One unit within the 5 lowest <code>net-amenity</code> is chosen for relocation. The reason that the single lowest one is not directly chosen is to avoid loops and to make the model potentially be able to escape local maxima. The possible destinations are patches that are buildable (<code>is-buildable</code> = <code>true</code>) and are not already occupied with a building unit: this means an unit can relocate itself to the top of an existing building or to an open space. It will move to the patch where it can maximise the <code>net-amenity</code>; thus maximising the amount of amenity it can achieve while minimising the negative externalities to the surrounding environment, weighted by the <code>selfishness</code> variable.</p>
+<section id="sec-relocation" class="level4">
+<h4 class="anchored" data-anchor-id="sec-relocation">Relocation of Units</h4>
+<p>One unit within the 5 lowest <code>net-amenity</code> is chosen to relocate to vacant buildable patches: either the top of an existing building or an open space. Units move to the patch that maximises the <code>net-amenity</code>.</p>
 </section>
 </section>
 </section>
 <section id="brief-methodology" class="level2">
 <h2 class="anchored" data-anchor-id="brief-methodology">Brief Methodology</h2>
-<p>The aim of the research is to explore the relationship between the selfishness, the characteristics of the built environment, and the amenity, to find out the most optimal form of the urban environment for different density levels. We will use the BehaviorSpace function to iterate over different conditions in the density and selfishness, dictated in the model by <code>floor-area-percentage</code> and <code>selfishness</code> respectively, to maximise the mean amenity of turtles. The variables and measurements are organised in <a href="#tbl-methodology-variables">Table&nbsp;4</a>. Each condition is repeated 10 times.</p>
-<div id="tbl-methodology-variables" class="tbl-parent quarto-layout-panel anchored">
-<div class="panel-caption table-caption">
-<p>Table&nbsp;4: Variables and measurements to vary and observe in the BehaviorSpace experiment.</p>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-methodology-variables-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-methodology-variables" style="flex-basis: 100.0%;justify-content: center;">
+<p>The objective is to explore the relationship between selfishness and the amenity for different densities, and identifying the optimal morphology, given a specific combination of weight for amenity measures. BehaviorSpace is used to simulate different conditions in density and selfishness to maximise amenity. Variables and measurements are organised in <a href="#tbl-bs-variables">Table&nbsp;8</a> and <a href="#tbl-bs-measurements">Table&nbsp;9</a>. Each condition is repeated 10 times.</p>
+<div id="tbl-bs-variables" class="anchored">
 <table class="table">
-<caption>(a) Varying variables in the BehaviorSpace experiment</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Variable</th>
-<th style="text-align: right;">Range</th>
-<th style="text-align: right;">Increments</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>floor-area-percentage</code></td>
-<td style="text-align: right;">100 - 500</td>
-<td style="text-align: right;">100</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>selfishness</code></td>
-<td style="text-align: right;">0 - 100</td>
-<td style="text-align: right;">10</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-methodology-variables-2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-methodology-variables" style="flex-basis: 100.0%;justify-content: center;">
-<table class="table">
-<caption>(b) Observing measurements in the BehaviorSpace experiment</caption>
+<caption>Table&nbsp;8: Variables to change in BehaviorSpace experiment</caption>
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 55%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Measurement</th>
-<th style="text-align: left;">Explanation</th>
+<th>Variable</th>
+<th style="text-align: right;">Range</th>
+<th style="text-align: right;">Increments</th>
+<th style="text-align: left;">Additional notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">mean <code>amenity</code> of building units</td>
-<td style="text-align: left;">Measurement to maximise</td>
+<td><code>floor-area-percentage</code></td>
+<td style="text-align: right;">100 - 500</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: left;">This factor is considered as given in an actual urban development context - a direct comparison between different percentages requires consideration.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">standard deviation of <code>building-height</code></td>
-<td style="text-align: left;">To gain insights on the morphology</td>
+<td><code>selfishness</code></td>
+<td style="text-align: right;">0 - 100</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Optimal selfishness within a fixed <code>floor-area-percentage</code> is explored. The optimal value is hypothesised at 50 % where <code>net-amenity</code> considers gains and losses equally - the morphology in this state is our research interest as well.</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div id="tbl-bs-measurements" class="anchored">
+<table class="table">
+<caption>Table&nbsp;9: Observing measurements in BehaviorSpace experiment</caption>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measurement</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mean <code>amenity</code> of building units</td>
+<td>Measurement to maximise in BehaviorSpace model</td>
+</tr>
+<tr class="even">
+<td>standard deviation of <code>building-height</code></td>
+<td>To gain insights on the morphology, by comparing the relationship between the building height and amenity.</td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-<p>The observation of measurement variables will be conducted under the usual state, assumed as <code>ticks</code> = <code>floor-area-percentage</code>.</p>
-<p>For each density condition, we will determine the selfishness value that can achieve the maximum amenity among units, and the variance of the building height under this condition. This will allow us to gain insights on the ideal urban environment that can maximise the amenity for the residents as a whole.</p>
+<p>Measurements are observed under the usual state, assumed as <code>ticks</code> = <code>floor-area-percentage</code>. For each density level, we will determine <code>selfishness</code> that achieves the maximum <code>amenity</code> and the variance of the building height under the optimal condition. This will provide insights on the ideal environment maximising the overall amenity.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="references" class="level2 unnumbered">

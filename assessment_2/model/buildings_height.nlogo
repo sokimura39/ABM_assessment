@@ -1133,7 +1133,8 @@ NetLogo 6.4.0
   <experiment name="brief_explanation" repetitions="10" sequentialRunOrder="false" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="250"/>
+    <timeLimit steps="500"/>
+    <exitCondition>ticks = floor-area-percentage</exitCondition>
     <metric>mean [amenity] of turtles</metric>
     <metric>standard-deviation [building-height] of ground</metric>
     <steppedValueSet variable="selfishness" first="0" step="10" last="100"/>

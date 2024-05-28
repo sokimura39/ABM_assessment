@@ -14,4 +14,4 @@ The repository for the assessment for CASA0011 - Agent Based Modelling.
 
 - Files: [assessment_2](assessment_2)
 - Submitted document: [assessment_2.pdf](assessment_2/assessment_2.pdf)
-- NetLogo Models: [models](assessment_2/models)
+- NetLogo Model: [models](assessment_2/model)

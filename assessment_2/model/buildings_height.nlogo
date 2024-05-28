@@ -1,3 +1,5 @@
+extensions [vid]
+
 globals
 [
   ; floor-area-percentage
@@ -20,6 +22,9 @@ globals
   ; group of patches
   ground ; patches on the ground
   above-ground ; patches above ground
+
+  ; recording flag ; true if recording
+  record-flag
 ]
 
 breed [dummies dummy] ; just for dummy turtles using in-cone
@@ -80,6 +85,9 @@ to setup-globals
   ; set ground and above ground
   set ground patches with [pycor = -1]
   set above-ground patches with [pycor >= 0]
+
+  ; set recording flag to false
+  set record-flag false
 end
 
 ;; initialise patches
@@ -146,6 +154,11 @@ to go
   update-patch-amenity
   calculate-amenity
   visualise
+  if record-flag
+  [
+    vid:record-interface
+  ]
+
   tick
 end
 
@@ -395,6 +408,21 @@ to visualise
 
   ]
 end
+
+; record video
+to record-start
+  ; start video recording
+  vid:start-recorder
+  vid:record-interface
+  set record-flag true
+end
+
+
+to record-stop
+  ; end record
+  vid:save-recording "out.mp4"
+  set record-flag false
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 150
@@ -483,7 +511,7 @@ max-view
 max-view
 0
 20
-10.0
+20.0
 1
 1
 NIL
@@ -528,7 +556,7 @@ selfishness
 selfishness
 0
 100
-0.0
+28.0
 1
 1
 %
@@ -572,7 +600,7 @@ light-weight
 light-weight
 0
 10
-5.0
+10.0
 1
 1
 NIL
@@ -602,7 +630,7 @@ open-weight
 open-weight
 0
 10
-0.0
+5.0
 1
 1
 NIL
@@ -617,7 +645,7 @@ price-weight
 price-weight
 0
 10
-5.0
+0.0
 1
 1
 NIL
@@ -782,6 +810,40 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot standard-deviation ([building-height] of ground)"
+
+BUTTON
+80
+140
+142
+173
+start
+record-start
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+80
+180
+142
+213
+stop
+record-stop
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
